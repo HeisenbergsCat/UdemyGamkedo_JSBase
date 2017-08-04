@@ -4,7 +4,7 @@
 var canvas;
 var canvasContext;
 var Ball = new Ball(10);
-var Paddle = new Paddle(20, 100);
+var Paddle = new Paddle(20, 150);
 var mouseX;
 var mouseY;
 
@@ -39,7 +39,7 @@ window.onload = function() {
     canvas.addEventListener('mousemove',
         function(evt) {
             var mousePos = calculateMousePos(evt);
-            Paddle.posX = mousePos.x - (Paddle.width / 2);
+            Paddle.pos.X = mousePos.x - (Paddle.width / 2);
         });
 }
 
