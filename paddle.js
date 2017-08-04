@@ -1,20 +1,19 @@
-function Paddle(length, width) {
-    this.length = length;
+function Paddle(height, width) {
+    this.height = height;
     this.width = width;
-    this.positionX = 0;
-    this.positionY = 0;
+    this.posX = 0;
+    this.posY = 0;
     this.color = "white";
 
     this.setup = function() {
 
-        this.positionY = canvas.height - 20;
-        this.positionX = 0;
+        this.posY = canvas.height - this.height - 10;
+        this.posX = 0;
         this.color = "red";
 
     }
-    this.draw = function(canvas) {
-
-        canvasContext.fillStyle = this.color;
-        canvasContext.fillRect(this.positionX, this.positionY, this.width, this.length);
+    this.render = function(canvas) {
+        drawRectangle(this.posX, this.posY, this.width, this.height, this.color);
     }
-}
+
+} // end of constructor function Paddle

@@ -1,11 +1,12 @@
 /*
  * JS BRICK GAME - GAMEKEDO UDEMY TUTORIAL
  */
-
 var canvas;
 var canvasContext;
 var Ball = new Ball(10);
-var Paddle = new Paddle(10, 100);
+var Paddle = new Paddle(20, 100);
+var mouseX;
+var mouseY;
 
 
 //MOUSE MOVEMENT
@@ -13,8 +14,8 @@ function calculateMousePos(evt) {
     var rect = canvas.getBoundingClientRect()
     var root = document.documentElement;
 
-    var mouseX = evt.clientX - rect.left - root.scrollLeft;
-    var mouseY = evt.clientY - rect.top - root.scrollTop;
+    mouseX = evt.clientX - rect.left - root.scrollLeft;
+    mouseY = evt.clientY - rect.top - root.scrollTop;
 
     return {
         x: mouseX,
@@ -38,7 +39,7 @@ window.onload = function() {
     canvas.addEventListener('mousemove',
         function(evt) {
             var mousePos = calculateMousePos(evt);
-            Paddle.positionX = mousePos.x - (Paddle.width / 2);
+            Paddle.posX = mousePos.x - (Paddle.width / 2);
         });
 }
 
@@ -49,12 +50,19 @@ function drawFrame() {
     drawObjects();
     updateMovement();
 
+    if (mouseY < 10) {
+        showText(mouseX + "," + mouseY, mouseX, mouseY + 30, "white");
+    } else if (mouseX > canvas.width - 10) {
+        showText(mouseX + "," + mouseY, mouseX - 40, mouseY, "white");
+    } else {
+        showText(mouseX + "," + mouseY, mouseX, mouseY, "white");
+    }
 }
 
 function drawObjects() {
 
-    Ball.draw();
-    Paddle.draw();
+    Ball.render();
+    Paddle.render();
 }
 
 function updateMovement() {
@@ -63,7 +71,7 @@ function updateMovement() {
     Ball.boundsCheck();
 
     //checks if the ball collides with a paddle
-    Ball.collisionCheckPaddle(Paddle);
+    Ball.bouncePaddle(Paddle);
 
     //updates position of the ball
     Ball.updatePosition();
