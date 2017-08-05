@@ -16,11 +16,6 @@ function calculateMousePos(evt) {
 
     mouseX = evt.clientX - rect.left - root.scrollLeft;
     mouseY = evt.clientY - rect.top - root.scrollTop;
-
-    return {
-        x: mouseX,
-        y: mouseY
-    };
 }
 
 window.onload = function() {
@@ -38,8 +33,8 @@ window.onload = function() {
     // INPUT HANDLING
     canvas.addEventListener('mousemove',
         function(evt) {
-            var mousePos = calculateMousePos(evt);
-            Paddle.pos.X = mousePos.x - (Paddle.width / 2);
+            calculateMousePos(evt);
+            Paddle.pos.X = mouseX - (Paddle.width / 2);
         });
 }
 
