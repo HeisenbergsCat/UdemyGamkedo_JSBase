@@ -1,9 +1,9 @@
 function Brick(posx, posy, type) {
     this.BRICK_SIDE = 50;
-    this.type = type;
     this.pos = new Vector(posx, posy);
-    this.width = this.BRICK_SIDE;
-    this.height = this.BRICK_SIDE;
+
+
+    this.type = type;
     this.alive = true;
 
     switch (type) {
@@ -34,7 +34,7 @@ function Brick(posx, posy, type) {
     }
 
     this.render = function() {
-        drawRectangle(this.pos.X, this.pos.Y, this.width, this.height, this.col);
+        drawRectangle(this.pos.X, this.pos.Y, this.BRICK_SIDE, this.BRICK_SIDE, this.col);
     }
 
 }

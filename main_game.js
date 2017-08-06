@@ -37,7 +37,7 @@ window.onload = function() {
             Paddle.pos.X = mouseX - (Paddle.width / 2);
         });
 
-    World = new brickGrid(20, 20, 10, 10);
+    World = new brickGrid(20, 20, 12, 3);
     World.gnerateGrid();
 
 }
@@ -61,7 +61,7 @@ function drawFrame() {
 function drawObjects() {
 
     World.renderGrid();
-    Ball.render();
+    //Ball.render();
     Paddle.render();
 }
 
@@ -71,7 +71,7 @@ function updateMovement() {
     Ball.boundsCheck();
 
     //checks if the ball collides with a paddle
-    Ball.bouncePaddle(Paddle);
+    //Ball.bouncePaddle(Paddle);
 
     //updates position of the ball
     Ball.updatePosition();
