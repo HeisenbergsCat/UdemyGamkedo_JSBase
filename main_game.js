@@ -7,7 +7,7 @@ var Ball = new Ball(10);
 var Paddle = new Paddle(20, 150);
 var mouseX;
 var mouseY;
-
+var World;
 
 //MOUSE MOVEMENT
 function calculateMousePos(evt) {
@@ -36,6 +36,10 @@ window.onload = function() {
             calculateMousePos(evt);
             Paddle.pos.X = mouseX - (Paddle.width / 2);
         });
+
+    World = new brickGrid(20, 20, 10, 10);
+    World.gnerateGrid();
+
 }
 
 //MAIN DRAWING LOOP
@@ -56,6 +60,7 @@ function drawFrame() {
 
 function drawObjects() {
 
+    World.renderGrid();
     Ball.render();
     Paddle.render();
 }
