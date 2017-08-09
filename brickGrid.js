@@ -39,7 +39,7 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
                 //bricks removed when mouse over them
                 //this.mouseHoverCheck(mouseX, mouseY, row, col);
 
-                //brick rendering
+                //brickGrid rendering
                 this.renderGrid(row, col);
             }
         }
@@ -56,17 +56,18 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
     }
 
     this.mouseHoverCheck = function(mouseX, mouseY, row, col) {
+        var currentBrick = this.world[row][col];
 
         if (mouseX == col && mouseY == row) {
-            this.world[row][col].alive = false;
+            currentBrick.takeDamage();
 
         }
     }
 
     this.renderGrid = function(row, col) {
         this.world[row][col].render();
+        //debug
         //showText(row + ", " + col, this.world[row][col].pos.X + 5, this.world[row][col].pos.Y + 5, "white");
-        showText(this.world[row][col].hitpoints, this.world[row][col].pos.X + 5, this.world[row][col].pos.Y + 5, "white");
 
     }
 }

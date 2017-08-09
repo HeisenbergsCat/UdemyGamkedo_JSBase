@@ -45,6 +45,7 @@ function Brick(posx, posy, type) {
     this.render = function() {
         if (this.alive) {
             drawRectangle(this.pos.X, this.pos.Y, this.BRICK_SIDE - 5, this.BRICK_SIDE - 5, this.col);
+            showText(this.hitpoints, this.pos.X + 5, this.pos.Y + 5, "white");
         }
 
     }
