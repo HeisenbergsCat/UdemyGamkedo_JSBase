@@ -1,25 +1,26 @@
 function Brick(posx, posy, type) {
     this.BRICK_SIDE = 50;
     this.pos = new Vector(posx, posy);
+    this.hitpoints = 1;
 
 
     this.type = type;
     this.alive = true;
 
     switch (type) {
-        case "rock":
+        case 0:
             this.col = "DimGray";
             this.hitpoints = 3;
             break;
 
-        case "lava":
+        case 1:
             this.col = "Red";
             this.hitpoints = 4;
             break;
 
 
-        case "ice":
-            this.col = "DarTurquoise";
+        case 2:
+            this.col = "DarkTurquoise";
             this.hitpoints = 1;
             break;
 
@@ -27,6 +28,14 @@ function Brick(posx, posy, type) {
         default:
             this.col = "White"
             this.hitpoints = 1;
+    }
+
+    this.takeDamage = function() {
+        this.hitpoints -= 1;
+
+        if (this.hitpoints <= 0) {
+            this.alive = false;
+        }
     }
 
     this.getSize = function() {

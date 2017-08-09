@@ -66,15 +66,15 @@ function drawFrame() {
 
 function drawObjects() {
 
-    World.renderGrid();
+    //World.renderGrid();
     Ball.render();
     Paddle.render();
 }
 
 function updateMovement() {
 
-    World.checkGridCollisions(Ball);
-    //World.mouseHoverCheck(mouseGridX, mouseGridY);
+    //handles brick grid collision check, rendering, mousehover etc. in one loop
+    World.mainGridLoop(Ball, mouseGridX, mouseGridY);
 
     //checks if the ball is colliding with the edges of the screen
     Ball.boundsCheck();

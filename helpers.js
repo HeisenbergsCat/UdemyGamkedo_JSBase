@@ -16,3 +16,7 @@ function drawCircle(posX, posY, radius, color) {
     canvasContext.arc(posX, posY, radius, 0, Math.PI * 2, true);
     canvasContext.fill();
 }
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
