@@ -57,7 +57,6 @@ function Ball(radius) {
             } else {
                 this.speed.X = hitPlace * SPEED_MULT;
             }
-            console.log(this.speed.X);
         }
 
     }

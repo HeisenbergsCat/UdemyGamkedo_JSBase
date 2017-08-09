@@ -7,6 +7,9 @@ var Ball = new Ball(10);
 var Paddle = new Paddle(20, 150);
 var mouseX;
 var mouseY;
+
+var mouseGridX;
+var mouseGridY;
 var World;
 
 //MOUSE MOVEMENT
@@ -37,7 +40,7 @@ window.onload = function() {
             Paddle.pos.X = mouseX - (Paddle.width / 2);
         });
 
-    World = new brickGrid(20, 20, 12, 3);
+    World = new brickGrid(0, 0, 14, 3);
     World.gnerateGrid();
 
 }
@@ -49,29 +52,35 @@ function drawFrame() {
     drawObjects();
     updateMovement();
 
+    mouseGridX = Math.floor(mouseX / 50);
+    mouseGridY = Math.floor(mouseY / 50);
+
     if (mouseY < 10) {
         showText(mouseX + "," + mouseY, mouseX, mouseY + 30, "white");
     } else if (mouseX > canvas.width - 10) {
         showText(mouseX + "," + mouseY, mouseX - 40, mouseY, "white");
     } else {
-        showText(mouseX + "," + mouseY, mouseX, mouseY, "white");
+        showText(mouseGridX + "," + mouseGridY, mouseX, mouseY, "white");
     }
 }
 
 function drawObjects() {
 
     World.renderGrid();
-    //Ball.render();
+    Ball.render();
     Paddle.render();
 }
 
 function updateMovement() {
 
+    World.checkGridCollisions(Ball);
+    //World.mouseHoverCheck(mouseGridX, mouseGridY);
+
     //checks if the ball is colliding with the edges of the screen
     Ball.boundsCheck();
 
     //checks if the ball collides with a paddle
-    //Ball.bouncePaddle(Paddle);
+    Ball.bouncePaddle(Paddle);
 
     //updates position of the ball
     Ball.updatePosition();
