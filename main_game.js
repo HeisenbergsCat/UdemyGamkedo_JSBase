@@ -4,7 +4,7 @@
 var canvas;
 var canvasContext;
 var Ball = new Ball(10);
-var Paddle = new Paddle(20, 150);
+var Paddle = new Paddle(10, 150);
 var mouseX;
 var mouseY;
 
@@ -66,7 +66,6 @@ function drawFrame() {
 
 function drawObjects() {
 
-    //World.renderGrid();
     Ball.render();
     Paddle.render();
 }

@@ -50,8 +50,22 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
 
         //TODO: Make the ball bounce of sides of bricks
         if (currentBrick.collisionCheck(collider)) {
-            collider.speed.Y = -collider.speed.Y;
+
             currentBrick.takeDamage();
+
+            var ballCol = Math.floor(collider.pos.X / this.brickSize);
+            var ballRow = Math.floor(collider.pos.Y / this.brickSize);
+            var prevBall = collider.getPrevPosition();
+            var prevBallCol = Math.floor(prevBall.X / this.brickSize);
+            var prevBallRow = Math.floor(prevBall.Y / this.brickSize);
+
+            if (ballCol != prevBallCol) {
+                collider.speed.X = -collider.speed.X;
+            }
+            if (ballRow != prevBallRow) {
+                collider.speed.Y = -collider.speed.Y;
+            }
+
         }
     }
 

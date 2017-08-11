@@ -43,16 +43,17 @@ function Brick(posx, posy, type) {
     }
 
     this.render = function() {
+        const GAP = 1
         if (this.alive) {
-            drawRectangle(this.pos.X, this.pos.Y, this.BRICK_SIDE - 5, this.BRICK_SIDE - 5, this.col);
-            showText(this.hitpoints, this.pos.X + 5, this.pos.Y + 5, "white");
+            drawRectangle(this.pos.X, this.pos.Y, this.BRICK_SIDE - GAP, this.BRICK_SIDE - GAP, this.col);
+            showText(this.hitpoints, this.pos.X + 6, this.pos.Y + 6, "white");
         }
 
     }
 
     this.collisionY = function(collider) {
-        if (collider.pos.Y + collider.radius > this.pos.Y &&
-            collider.pos.Y - collider.radius < this.pos.Y + this.BRICK_SIDE) {
+        if (collider.pos.Y > this.pos.Y &&
+            collider.pos.Y < this.pos.Y + this.BRICK_SIDE) {
             return true;
         } else {
             return false;
@@ -60,8 +61,8 @@ function Brick(posx, posy, type) {
     }
 
     this.collisionX = function(collider) {
-        if (collider.pos.X + collider.radius > this.pos.X &&
-            collider.pos.X - collider.radius < this.pos.X + this.BRICK_SIDE) {
+        if (collider.pos.X > this.pos.X &&
+            collider.pos.X < this.pos.X + this.BRICK_SIDE) {
             return true;
         } else {
             return false;

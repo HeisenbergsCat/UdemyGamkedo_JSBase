@@ -6,7 +6,7 @@ function Paddle(height, width) {
 
     this.setup = function() {
 
-        this.pos.Y = canvas.height - this.height - 5;
+        this.pos.Y = canvas.height - this.height - 2;
         this.pos.X = 0;
         this.color = "red";
 

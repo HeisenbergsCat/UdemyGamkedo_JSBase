@@ -11,10 +11,18 @@ function Ball(radius) {
 
     this.render = function() {
         drawCircle(this.pos.X, this.pos.Y, this.radius, this.color);
+        showText(Math.floor(this.pos.X / 50) + ", " + Math.floor(this.pos.Y / 50), this.pos.X + 20, this.pos.Y + 20, "yellow");
     }
 
     this.updatePosition = function() {
         this.pos.vectorSum(this.speed);
+    }
+
+    this.getPrevPosition = function() {
+        var returnVec = new Vector(this.pos.X, this.pos.Y);
+        returnVec.vectorDif(this.speed);
+
+        return returnVec;
     }
 
     this.reset = function() {
