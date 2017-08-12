@@ -4,6 +4,7 @@ function Ball(radius) {
     this.radius = radius;
     this.color = "white"
 
+    //TODO: Is this really neccesary ? Reset is basically teh same
     this.setup = function() {
         this.pos.X = canvas.width / 2;
         this.pos.Y = canvas.height / 2;
@@ -18,6 +19,8 @@ function Ball(radius) {
         this.pos.vectorSum(this.speed);
     }
 
+    //gets position form previous frame by subtracting current speed of current position
+    //QUESTION: Is this works only if the speed is constant ?
     this.getPrevPosition = function() {
         var returnVec = new Vector(this.pos.X, this.pos.Y);
         returnVec.vectorDif(this.speed);
@@ -34,6 +37,7 @@ function Ball(radius) {
         this.speed.Y = -this.speed.Y;
     }
 
+    //checks collisions with screen edges
     this.boundsCheck = function() {
         if (this.pos.X + this.radius > canvas.width) {
             this.speed.X = -this.speed.X;
@@ -50,6 +54,7 @@ function Ball(radius) {
         }
     }
 
+    //bounces ball from the paddle
     this.bouncePaddle = function(collisionObject) {
 
         if (this.collisionCheck(collisionObject)) {
@@ -69,6 +74,8 @@ function Ball(radius) {
 
     }
 
+    //collision check
+    //TODO: Refctor as in brick, maybe do this as universal helper function ?
     this.collisionCheck = function(collisionObject) {
         if (this.pos.Y > collisionObject.pos.Y - this.radius &&
             this.pos.X > collisionObject.pos.X &&
