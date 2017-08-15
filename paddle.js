@@ -14,5 +14,4 @@ function Paddle(height, width) {
     this.render = function(canvas) {
         drawRectangle(this.pos.X, this.pos.Y, this.width, this.height, this.color);
     }
-
 } // end of constructor function Paddle

@@ -1,18 +1,12 @@
 function Ball(radius) {
     this.pos = new Vector(100, 100);
-    this.speed = new Vector(-7, 9);
+    this.speed = new Vector(-5, 6);
     this.radius = radius;
     this.color = "white"
 
-    //TODO: Is this really neccesary ? Reset is basically teh same
-    this.setup = function() {
-        this.pos.X = canvas.width / 2;
-        this.pos.Y = canvas.height / 2;
-    }
-
     this.render = function() {
         drawCircle(this.pos.X, this.pos.Y, this.radius, this.color);
-        showText(Math.floor(this.pos.X / 50) + ", " + Math.floor(this.pos.Y / 50), this.pos.X + 20, this.pos.Y + 20, "yellow");
+        //showText(Math.floor(this.pos.X / 50) + ", " + Math.floor(this.pos.Y / 50), this.pos.X + 20, this.pos.Y + 20, "yellow");
     }
 
     this.updatePosition = function() {
@@ -29,9 +23,8 @@ function Ball(radius) {
     }
 
     this.reset = function() {
-
         this.pos.X = canvas.width / 2;
-        this.pos.Y = canvas.height / 2;
+        this.pos.Y = (canvas.height / 2) + 80;
 
         this.speed.X = -this.speed.X;
         this.speed.Y = -this.speed.Y;
@@ -39,10 +32,10 @@ function Ball(radius) {
 
     //checks collisions with screen edges
     this.boundsCheck = function() {
-        if (this.pos.X + this.radius > canvas.width) {
+        if (this.pos.X + this.radius > canvas.width && this.speed.X > 0.0) {
             this.speed.X = -this.speed.X;
         }
-        if (this.pos.Y + this.radius > canvas.height) {
+        if (this.pos.Y + this.radius > canvas.height && this.speed.Y > 0.0) {
             //this.speedY = -this.speedY;
             this.reset();
         }
@@ -56,7 +49,6 @@ function Ball(radius) {
 
     //bounces ball from the paddle
     this.bouncePaddle = function(collisionObject) {
-
         if (this.collisionCheck(collisionObject)) {
             this.speed.Y = -this.speed.Y;
             const SPEED_MULT = 0.4;
@@ -71,7 +63,6 @@ function Ball(radius) {
                 this.speed.X = hitPlace * SPEED_MULT;
             }
         }
-
     }
 
     //collision check
@@ -86,5 +77,4 @@ function Ball(radius) {
             return false;
         }
     }
-
 } // end of constructor function Ball

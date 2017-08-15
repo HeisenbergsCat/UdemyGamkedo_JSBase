@@ -31,7 +31,7 @@ window.onload = function() {
 
     //GAME OBJECT INITAL SETUP
     Paddle.setup();
-    Ball.setup();
+    Ball.reset();
 
     // INPUT HANDLING
     canvas.addEventListener('mousemove',
@@ -40,7 +40,7 @@ window.onload = function() {
             Paddle.pos.X = mouseX - (Paddle.width / 2);
         });
 
-    World = new brickGrid(0, 0, 14, 3);
+    World = new brickGrid(0, 0, 16, 4);
     World.gnerateGrid();
 
 }
@@ -68,12 +68,15 @@ function drawObjects() {
 
     Ball.render();
     Paddle.render();
+    World.displayPoints();
+    World.displayLevel();
 }
 
 function updateMovement() {
 
     //handles brick grid collision check, rendering, mousehover etc. in one loop
     World.mainGridLoop(Ball, mouseGridX, mouseGridY);
+    World.worldReset(Ball);
 
     //checks if the ball is colliding with the edges of the screen
     Ball.boundsCheck();

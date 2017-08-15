@@ -14,15 +14,13 @@ function Brick(posx, posy, type) {
 
         case 1:
             this.col = "Red";
-            this.hitpoints = 4;
+            this.hitpoints = 2;
             break;
-
 
         case 2:
             this.col = "DarkTurquoise";
             this.hitpoints = 1;
             break;
-
 
         default:
             this.col = "White"
@@ -31,23 +29,20 @@ function Brick(posx, posy, type) {
 
     this.takeDamage = function() {
         this.hitpoints -= 1;
-
-        if (this.hitpoints <= 0) {
-            this.alive = false;
-        }
     }
 
+    //gets brick's side length
     this.getSize = function() {
         return this.BRICK_SIDE;
     }
 
+    //draws brick on the screen
     this.render = function() {
         const GAP = 1
         if (this.alive) {
             drawRectangle(this.pos.X, this.pos.Y, this.BRICK_SIDE - GAP, this.BRICK_SIDE - GAP, this.col);
             showText(this.hitpoints, this.pos.X + 6, this.pos.Y + 6, "white");
         }
-
     }
 
     //refactored from collisionCheck for clarity
@@ -79,7 +74,5 @@ function Brick(posx, posy, type) {
                 return false;
             }
         }
-
     }
-
 }
