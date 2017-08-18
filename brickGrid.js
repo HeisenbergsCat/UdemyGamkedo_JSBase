@@ -18,13 +18,8 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
     this.gnerateGrid = function() {
         var brickPos = new Vector(startposX, startposY);
 
-        //generate gutter (empty top row)
-        for (var row = 0; row < 1; row++) {
-            this.world[row] = false;
-        }
-
         //generate main grid
-        for (var row = 1; row < this.sizeY; row++) {
+        for (var row = 0; row < this.sizeY; row++) {
             for (var col = 0; col < this.sizeX; col++) {
 
                 //generate random brick type
@@ -54,7 +49,7 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
                     this.checkGridCollisions(collider, row, col);
 
                     //bricks removed when mouse over them
-                    this.mouseHoverCheck(mouseX, mouseY, row, col);
+                    //this.mouseHoverCheck(mouseX, mouseY, row, col);
 
                     //brickGrid rendering
                     this.renderGrid(row, col);

@@ -4,7 +4,6 @@
 var canvas;
 var canvasContext;
 var Ball = new Ball(10);
-var Paddle = new Paddle(10, 150);
 var mouseX;
 var mouseY;
 
@@ -30,17 +29,16 @@ window.onload = function() {
     setInterval(drawFrame, frameRate);
 
     //GAME OBJECT INITAL SETUP
-    Paddle.setup();
     Ball.reset();
 
     // INPUT HANDLING
     canvas.addEventListener('mousemove',
         function(evt) {
             calculateMousePos(evt);
-            Paddle.pos.X = mouseX - (Paddle.width / 2);
+            //Paddle.pos.X = mouseX - (Paddle.width / 2);
         });
 
-    World = new brickGrid(0, 0, 16, 4);
+    World = new brickGrid(0, 0, 16, 12);
     World.gnerateGrid();
 
 }
@@ -67,9 +65,6 @@ function drawFrame() {
 function drawObjects() {
 
     Ball.render();
-    Paddle.render();
-    World.displayPoints();
-    World.displayLevel();
 }
 
 function updateMovement() {
@@ -80,9 +75,6 @@ function updateMovement() {
 
     //checks if the ball is colliding with the edges of the screen
     Ball.boundsCheck();
-
-    //checks if the ball collides with a paddle
-    Ball.bouncePaddle(Paddle);
 
     //updates position of the ball
     Ball.updatePosition();
