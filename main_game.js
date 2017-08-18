@@ -3,13 +3,21 @@
  */
 var canvas;
 var canvasContext;
+//game elements
 var Ball = new Ball(10);
+var World;
+//mouse position
 var mouseX;
 var mouseY;
-
+//mose position in grid space
 var mouseGridX;
 var mouseGridY;
-var World;
+//mouse click handling
+var mouseClicked = 0;
+
+var WORLD_ROWS = 11
+var WORLD_COLS = 16
+
 
 //MOUSE MOVEMENT
 function calculateMousePos(evt) {
@@ -18,7 +26,11 @@ function calculateMousePos(evt) {
 
     mouseX = evt.clientX - rect.left - root.scrollLeft;
     mouseY = evt.clientY - rect.top - root.scrollTop;
+
+    mouseGridX = Math.floor(mouseX / 50);
+    mouseGridY = Math.floor(mouseY / 50);
 }
+
 
 window.onload = function() {
 
@@ -35,12 +47,32 @@ window.onload = function() {
     canvas.addEventListener('mousemove',
         function(evt) {
             calculateMousePos(evt);
-            //Paddle.pos.X = mouseX - (Paddle.width / 2);
         });
 
-    World = new brickGrid(0, 0, 16, 12);
+    canvas.addEventListener('mousedown', function(evt) {
+        mouseClicked = 1;
+    });
+
+    canvas.addEventListener('mouseup', function(evt) {
+        mouseClicked = 0;
+    });
+
+    //WORLD GRID GENERATION
+    World = new brickGrid(0, 0, WORLD_COLS, WORLD_ROWS);
     World.gnerateGrid();
 
+}
+
+function updateMovement() {
+
+    //handles brick grid collision check, rendering, mousehover etc. in one loop
+    World.mainGridLoop(Ball, mouseGridX, mouseGridY, mouseClicked);
+
+    //checks if the ball is colliding with the edges of the screen
+    Ball.boundsCheck();
+
+    //updates position of the ball
+    Ball.updatePosition();
 }
 
 //MAIN DRAWING LOOP
@@ -49,35 +81,18 @@ function drawFrame() {
     drawBackground();
     drawObjects();
     updateMovement();
-
-    mouseGridX = Math.floor(mouseX / 50);
-    mouseGridY = Math.floor(mouseY / 50);
-
-    if (mouseY < 10) {
-        showText(mouseX + "," + mouseY, mouseX, mouseY + 30, "white");
-    } else if (mouseX > canvas.width - 10) {
-        showText(mouseX + "," + mouseY, mouseX - 40, mouseY, "white");
-    } else {
-        showText(mouseGridX + "," + mouseGridY, mouseX, mouseY, "white");
-    }
 }
 
 function drawObjects() {
 
+
+    World.paintBricks(mouseClicked, mouseGridX, mouseGridY, WORLD_ROWS)
+    World.renderGrid();
+    World.renderCursor(mouseGridX, mouseGridY, WORLD_ROWS);
     Ball.render();
-}
+    renderMousePos();
 
-function updateMovement() {
-
-    //handles brick grid collision check, rendering, mousehover etc. in one loop
-    World.mainGridLoop(Ball, mouseGridX, mouseGridY);
-    World.worldReset(Ball);
-
-    //checks if the ball is colliding with the edges of the screen
-    Ball.boundsCheck();
-
-    //updates position of the ball
-    Ball.updatePosition();
+    showText(mouseClicked, 400, 300, "white");
 
 }
 
@@ -85,4 +100,8 @@ function drawBackground() {
 
     canvasContext.fillStyle = "black";
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function renderMousePos() {
+    showText(mouseGridX + ", " + mouseGridY, mouseX, mouseY, "white")
 }
