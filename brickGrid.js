@@ -2,7 +2,7 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
     this.world = new Array();
-    this.brickSize = 50;
+    this.brickSize = 40;
 
     this.points = 0;
     this.level = 1;
@@ -54,12 +54,8 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
     this.mainGridLoop = function(collider, mouseGridX, mouseGridY, clicked) {
         for (var row = 0; row < this.sizeY; row++) {
             for (var col = 0; col < this.sizeX; col++) {
-
-                //check if there's valid brick
-                if (this.world[row][col]) {
-                    //check collisions
-                    this.checkGridCollisions(collider, row, col);
-                }
+                //check collisions
+                this.checkGridCollisions(collider, row, col);
             }
         }
     }
@@ -73,7 +69,7 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
     this.renderGrid = function(row, col) {
         for (var row = 0; row < this.sizeY; row++) {
             for (var col = 0; col < this.sizeX; col++) {
-                this.world[row][col].render();
+                this.world[row][col].render(1);
                 //debug
                 //showText(row + ", " + col, this.world[row][col].pos.X + 5, this.world[row][col].pos.Y + 5, "white");
             }

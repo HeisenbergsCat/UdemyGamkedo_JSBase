@@ -1,5 +1,5 @@
 function Brick(posx, posy, type) {
-    this.BRICK_SIDE = 50;
+    this.BRICK_SIDE = 40;
     this.pos = new Vector(posx, posy);
     this.brickType = type;
     this.alive = true;
@@ -12,8 +12,8 @@ function Brick(posx, posy, type) {
     }
 
     //draws brick on the screen
-    this.render = function() {
-        const GAP = 1
+    this.render = function(gap) {
+        const GAP = gap
         if (this.alive) {
             this.col = typeSwitch(this.brickType);
             drawRectangle(this.pos.X, this.pos.Y, this.BRICK_SIDE - GAP, this.BRICK_SIDE - GAP, this.col, "fill");

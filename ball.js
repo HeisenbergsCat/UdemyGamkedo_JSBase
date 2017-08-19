@@ -1,6 +1,6 @@
 function Ball(radius) {
     this.pos = new Vector(100, 100);
-    this.speed = new Vector(-5, 6);
+    this.speed = new Vector(0, 0);
     this.radius = radius;
     this.color = "white"
 
