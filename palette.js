@@ -40,6 +40,9 @@ function Palette(posx, posy) {
     this.renderPalGrid = function() {
         for (var i = 0; i < this.paletteSet.length; i++) {
             this.paletteSet[i].render();
+            if (this.paletteSet[i].brickType == activeType) {
+                drawCircle(this.paletteSet[i].pos.X + 25, this.paletteSet[i].pos.Y + 25, 10, "white", "stroke")
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
                 brickPos.X = startposX + (this.brickSize * col);
 
                 //creates brick object at current column and row
-                this.world[row][col] = new Brick(brickPos.X, brickPos.Y, 1);
+                this.world[row][col] = new Brick(brickPos.X, brickPos.Y, 0);
                 this.world[row][col].alive = true;
             }
             //sets back column index to 0
@@ -87,8 +87,8 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
 
         if (currentBrick.collisionCheck(collider)) {
             //if the car hits the wall, stop the car
-            collider.speed.X = 0;
-            collider.speed.Y = 0;
+            collider.speed.X *= -1;
+            collider.speed.Y *= -1;
         }
     }
 

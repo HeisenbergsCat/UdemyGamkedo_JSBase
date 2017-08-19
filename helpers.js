@@ -14,12 +14,17 @@ function drawRectangle(posX, posY, width, height, color, mode) {
     }
 } // end of drawRectangle
 
-function drawCircle(posX, posY, radius, color) {
+function drawCircle(posX, posY, radius, color, mode) {
     canvasContext.fillStyle = color;
+    canvasContext.strokeStyle = color;
     canvasContext.beginPath();
     canvasContext.arc(posX, posY, radius, 0, Math.PI * 2, true);
-    canvasContext.fill();
-} // end of drawCircle
+    if (mode == "fill") {
+        canvasContext.fill();
+    } else if (mode == "stroke") {
+        canvasContext.stroke();
+    }
+}
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);

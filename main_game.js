@@ -15,7 +15,7 @@ var mouseGridX;
 var mouseGridY;
 //mouse click handling
 var mouseClicked = 0;
-var activeType = 0;
+var activeType = 1;
 
 var WORLD_ROWS = 11
 var WORLD_COLS = 16
@@ -75,7 +75,7 @@ window.onload = function() {
 function updateMovement() {
 
     //handles brick grid collision
-    //World.mainGridLoop(Ball, mouseGridX, mouseGridY, mouseClicked);
+    World.mainGridLoop(Ball, mouseGridX, mouseGridY, mouseClicked);
 
     //checks if the ball is colliding with the edges of the screen
     Ball.boundsCheck();
@@ -102,7 +102,7 @@ function drawObjects() {
     World.renderGrid();
     World.renderCursor(mouseGridX, mouseGridY, WORLD_ROWS);
 
-    //Ball.render();
+    Ball.render();
     renderMousePos();
 }
 

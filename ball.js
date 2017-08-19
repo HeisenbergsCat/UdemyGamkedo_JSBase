@@ -5,7 +5,7 @@ function Ball(radius) {
     this.color = "white"
 
     this.render = function() {
-        drawCircle(this.pos.X, this.pos.Y, this.radius, this.color);
+        drawCircle(this.pos.X, this.pos.Y, this.radius, this.color, "fill");
         //showText(Math.floor(this.pos.X / 50) + ", " + Math.floor(this.pos.Y / 50), this.pos.X + 20, this.pos.Y + 20, "yellow");
     }
 
@@ -36,32 +36,13 @@ function Ball(radius) {
             this.speed.X = -this.speed.X;
         }
         if (this.pos.Y + this.radius > canvas.height && this.speed.Y > 0.0) {
-            //this.speedY = -this.speedY;
-            this.reset();
+            this.speed.Y = -this.speed.Y;
         }
         if (this.pos.X < 0) {
             this.speed.X = -this.speed.X;
         }
         if (this.pos.Y < 0) {
             this.speed.Y = -this.speed.Y;
-        }
-    }
-
-    //bounces ball from the paddle
-    this.bouncePaddle = function(collisionObject) {
-        if (this.collisionCheck(collisionObject)) {
-            this.speed.Y = -this.speed.Y;
-            const SPEED_MULT = 0.4;
-            var collisionCenter = collisionObject.pos.X + (collisionObject.width / 2);
-            var hitPlace = collisionCenter - this.pos.X;
-
-            if (this.speed.X > 0 && hitPlace < 0) {
-                this.speed.X = Math.abs(hitPlace) * SPEED_MULT;
-            } else if (this.speed.X < 0 && hitPlace > 0) {
-                this.speed.X = -hitPlace * SPEED_MULT;
-            } else {
-                this.speed.X = hitPlace * SPEED_MULT;
-            }
         }
     }
 
