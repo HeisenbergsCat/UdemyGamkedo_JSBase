@@ -6,6 +6,7 @@ var canvasContext;
 //game elements
 var Ball = new Ball(10);
 var World;
+var Pal;
 //mouse position
 var mouseX;
 var mouseY;
@@ -14,6 +15,7 @@ var mouseGridX;
 var mouseGridY;
 //mouse click handling
 var mouseClicked = 0;
+var activeType = 0;
 
 var WORLD_ROWS = 11
 var WORLD_COLS = 16
@@ -34,6 +36,8 @@ function calculateMousePos(evt) {
 
 window.onload = function() {
 
+
+
     // CANVAS SETUP
     canvas = document.getElementById("GameCanvas");
     canvasContext = canvas.getContext("2d");
@@ -42,6 +46,8 @@ window.onload = function() {
 
     //GAME OBJECT INITAL SETUP
     Ball.reset();
+
+
 
     // INPUT HANDLING
     canvas.addEventListener('mousemove',
@@ -57,16 +63,19 @@ window.onload = function() {
         mouseClicked = 0;
     });
 
+    //PALETTE GRID GENERATION
+    Pal = new Palette(0, 550);
+    Pal.generatePalGrid();
+
     //WORLD GRID GENERATION
     World = new brickGrid(0, 0, WORLD_COLS, WORLD_ROWS);
     World.gnerateGrid();
-
 }
 
 function updateMovement() {
 
-    //handles brick grid collision check, rendering, mousehover etc. in one loop
-    World.mainGridLoop(Ball, mouseGridX, mouseGridY, mouseClicked);
+    //handles brick grid collision
+    //World.mainGridLoop(Ball, mouseGridX, mouseGridY, mouseClicked);
 
     //checks if the ball is colliding with the edges of the screen
     Ball.boundsCheck();
@@ -85,15 +94,16 @@ function drawFrame() {
 
 function drawObjects() {
 
+    Pal.switchType(mouseClicked, mouseGridX, mouseGridY);
+    Pal.renderPalGrid();
+    Pal.renderPalCursor(mouseGridX, mouseGridY);
 
-    World.paintBricks(mouseClicked, mouseGridX, mouseGridY, WORLD_ROWS)
+    World.paintBricks(activeType, mouseClicked, mouseGridX, mouseGridY, WORLD_ROWS)
     World.renderGrid();
     World.renderCursor(mouseGridX, mouseGridY, WORLD_ROWS);
-    Ball.render();
+
+    //Ball.render();
     renderMousePos();
-
-    showText(mouseClicked, 400, 300, "white");
-
 }
 
 function drawBackground() {

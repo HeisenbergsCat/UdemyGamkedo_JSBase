@@ -27,27 +27,27 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
 
                 //creates brick object at current column and row
                 this.world[row][col] = new Brick(brickPos.X, brickPos.Y, 1);
-                this.world[row][col].alive = false;
+                this.world[row][col].alive = true;
             }
             //sets back column index to 0
             brickPos.X = startposX;
         }
     }
 
-    this.paintBricks = function(clicked, mouseGridX, mouseGridY, yBound) {
+    this.paintBricks = function(activeType, clicked, mouseGridX, mouseGridY, yBound) {
         if (mouseGridY < yBound) {
             var currentBrick = this.world[mouseGridY][mouseGridX];
             if (clicked == 1) {
-                this.world[mouseGridY][mouseGridX].alive = true;
+                currentBrick.brickType = activeType;
             }
         }
     }
 
-    this.renderCursor = function(mouseGridX, mouseGrid, yBound) {
+    this.renderCursor = function(mouseGridX, mouseGridY, yBound) {
         if (mouseGridY < yBound) {
             var currentBrick = this.world[mouseGridY][mouseGridX];
             drawRectangle(currentBrick.pos.X, currentBrick.pos.Y,
-                currentBrick.BRICK_SIDE, currentBrick.BRICK_SIDE, "blue");
+                currentBrick.BRICK_SIDE, currentBrick.BRICK_SIDE, "white", "stroke");
         }
     }
 
@@ -57,8 +57,6 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
 
                 //check if there's valid brick
                 if (this.world[row][col]) {
-
-                    this.paintBricks(clicked, mouseGridX, mouseGridY);
                     //check collisions
                     this.checkGridCollisions(collider, row, col);
                 }
@@ -81,7 +79,6 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
             }
         }
     }
-
 
     //TODO: Figure out better way to handle collisions
     //checks if the ball hit the brick

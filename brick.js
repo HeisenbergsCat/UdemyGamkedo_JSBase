@@ -1,30 +1,10 @@
 function Brick(posx, posy, type) {
     this.BRICK_SIDE = 50;
     this.pos = new Vector(posx, posy);
-    this.type = type;
+    this.brickType = type;
     this.alive = true;
+    this.col = "black"
 
-    //TODO - make this a function
-    switch (type) {
-        case 0:
-            this.col = "DimGray";
-            this.hitpoints = 3;
-            break;
-
-        case 1:
-            this.col = "Red";
-            this.hitpoints = 2;
-            break;
-
-        case 2:
-            this.col = "DarkTurquoise";
-            this.hitpoints = 1;
-            break;
-
-        default:
-            this.col = "White"
-            this.hitpoints = 1;
-    }
 
     //gets brick's side length
     this.getSize = function() {
@@ -35,7 +15,8 @@ function Brick(posx, posy, type) {
     this.render = function() {
         const GAP = 1
         if (this.alive) {
-            drawRectangle(this.pos.X, this.pos.Y, this.BRICK_SIDE - GAP, this.BRICK_SIDE - GAP, this.col);
+            this.col = typeSwitch(this.brickType);
+            drawRectangle(this.pos.X, this.pos.Y, this.BRICK_SIDE - GAP, this.BRICK_SIDE - GAP, this.col, "fill");
         }
     }
 
