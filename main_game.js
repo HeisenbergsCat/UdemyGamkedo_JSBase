@@ -18,6 +18,7 @@ var currentKeyPressed;
 
 const WORLD_ROWS = 14
 const WORLD_COLS = 20
+const GBRICK_SIZE = 40
 
 const SPACE = 32;
 const KEY_LEFT_ARROW = 37;
@@ -43,8 +44,8 @@ function calculateMousePos(evt) {
     mouseX = evt.clientX - rect.left - root.scrollLeft;
     mouseY = evt.clientY - rect.top - root.scrollTop;
 
-    mouseGridX = Math.floor(mouseX / 40);
-    mouseGridY = Math.floor(mouseY / 40);
+    mouseGridX = Math.floor(mouseX / GBRICK_SIZE);
+    mouseGridY = Math.floor(mouseY / GBRICK_SIZE);
 }
 
 function keyPressed(evt) {
@@ -119,7 +120,7 @@ window.onload = function() {
     //GAME OBJECT INITAL SETUP
     Car.reset(2, 4);
     //PALETTE GRID GENERATION
-    Pal = new Palette(0, 600 - 40);
+    Pal = new Palette(0, 600 - GBRICK_SIZE);
     Pal.generatePalGrid();
     //WORLD GRID GENERATION
     World = new brickGrid(0, 0, WORLD_COLS, WORLD_ROWS);

@@ -1,5 +1,5 @@
 function Brick(posx, posy, type) {
-    this.BRICK_SIDE = 40;
+    this.BRICK_SIDE = GBRICK_SIZE;
     this.pos = new Vector(posx, posy);
     this.brickType = type;
     this.alive = true;

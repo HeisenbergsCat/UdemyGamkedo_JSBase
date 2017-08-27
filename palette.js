@@ -2,7 +2,7 @@ function Palette(posx, posy) {
     this.startposX = posx;
     this.startposY = posy;
     this.paletteSet = new Array();
-    this.brickSize = 40;
+    this.brickSize = GBRICK_SIZE;
     this.totalTypes = 4;
 
     //generates grid of brick objects
@@ -11,7 +11,7 @@ function Palette(posx, posy) {
         var offset = 0;
         for (var i = 0; i < this.totalTypes; i++) {
             this.paletteSet[i] = new Brick(brickPos.X + offset, brickPos.Y, i);
-            offset += 40;
+            offset += GBRICK_SIZE;
         }
     }
 

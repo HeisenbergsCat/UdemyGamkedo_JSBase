@@ -2,7 +2,7 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
     this.world = new Array();
-    this.brickSize = 40;
+    this.brickSize = GBRICK_SIZE;
 
     this.points = 0;
     this.level = 1;

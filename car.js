@@ -32,10 +32,10 @@ function Car(radius) {
             this.rot -= 0.1;
         }
         if (gasPressed) {
-            this.speed += 0.1;
+            this.speed += 0.15;
         }
         if (reversePressed) {
-            this.speed -= 0.1;
+            this.speed -= 0.15;
         }
         if (brakesPressed) {
             this.speed *= 0.8;
@@ -70,12 +70,11 @@ function Car(radius) {
     }
 
     this.reset = function(posx, posy) {
-        this.pos.X = Math.floor(posx * 40) + 20;
-        this.pos.Y = Math.floor(posy * 40) + 20;
+        this.pos.X = Math.floor(posx * GBRICK_SIZE) + GBRICK_SIZE / 2;
+        this.pos.Y = Math.floor(posy * GBRICK_SIZE) + GBRICK_SIZE / 2;
     }
 
     //collision check
-    //TODO: Refctor as in brick, maybe do this as universal helper function ?
     this.collisionCheck = function(collisionObject) {
         if (this.pos.Y > collisionObject.pos.Y - this.radius &&
             this.pos.X > collisionObject.pos.X &&
