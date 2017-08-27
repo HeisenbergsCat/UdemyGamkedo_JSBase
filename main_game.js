@@ -1,11 +1,7 @@
-/*
- * JS BRICK GAME - GAMEKEDO UDEMY TUTORIAL
- */
-
 var canvas;
 var canvasContext;
 //game elements
-var Ball = new Ball(10);
+var Car = new Car(10);
 var World;
 var Pal;
 //mouse position
@@ -17,9 +13,24 @@ var mouseGridY;
 //mouse click handling
 var mouseClicked = 0;
 var activeType = 1;
+//keyboard input handling
+var currentKeyPressed;
 
-var WORLD_ROWS = 14
-var WORLD_COLS = 20
+const WORLD_ROWS = 14
+const WORLD_COLS = 20
+
+const SPACE = 32;
+const KEY_LEFT_ARROW = 37;
+const KEY_RIGHT_ARROW = 39;
+const KEY_UP_ARROW = 38;
+const KEY_DOWN_ARROW = 40;
+
+var keyD = false;
+
+//images
+
+var carPic = document.createElement("img");
+var carPicLoaded = false;
 
 //MOUSE MOVEMENT
 function calculateMousePos(evt) {
@@ -33,6 +44,16 @@ function calculateMousePos(evt) {
     mouseGridY = Math.floor(mouseY / 40);
 }
 
+function keyPressed(evt) {
+    currentKeyPressed = evt.keyCode;
+    keyD = true;
+}
+
+function keyReleased(evt) {
+    //console.log(evt.keyCode);
+    keyD = false;
+}
+
 window.onload = function() {
 
     // CANVAS SETUP
@@ -42,6 +63,10 @@ window.onload = function() {
     setInterval(drawFrame, frameRate);
 
     // INPUT HANDLING
+
+    document.addEventListener('keydown', keyPressed);
+    document.addEventListener('keyup', keyReleased);
+
     canvas.addEventListener('mousemove',
         function(evt) {
             calculateMousePos(evt);
@@ -55,8 +80,13 @@ window.onload = function() {
         mouseClicked = 0;
     });
 
+    carPic.onload = function() {
+        carPicLoaded = true;
+    }
+    carPic.src = "images/player1car.png";
+
     //GAME OBJECT INITAL SETUP
-    Ball.reset();
+    Car.reset(2, 4);
     //PALETTE GRID GENERATION
     Pal = new Palette(0, 600 - 40);
     Pal.generatePalGrid();
@@ -68,13 +98,10 @@ window.onload = function() {
 function updateMovement() {
 
     //handles brick grid collision
-    World.mainGridLoop(Ball, mouseGridX, mouseGridY, mouseClicked);
-
-    //checks if the ball is colliding with the edges of the screen
-    Ball.boundsCheck();
+    World.mainGridLoop(Car, mouseGridX, mouseGridY, mouseClicked);
 
     //updates position of the ball
-    Ball.updatePosition();
+    Car.updatePosition();
 }
 
 //MAIN DRAWING LOOP
@@ -95,7 +122,7 @@ function drawObjects() {
     World.renderGrid();
     World.renderCursor(mouseGridX, mouseGridY, WORLD_ROWS);
 
-    Ball.render();
+    Car.render();
     renderMousePos();
 }
 
