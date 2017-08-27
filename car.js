@@ -1,3 +1,15 @@
+//car steering modifiers
+const ACCELERATION = 0.15;
+const REVERSE = 0.15;
+const TURN_RATE = 0.1;
+const BRAKE_RATE = 0.8;
+const SPEED_DECAY = 0.98;
+
+//grid definitions
+const WORLD_ROWS = 14
+const WORLD_COLS = 20
+const GBRICK_SIZE = 40
+
 function Car(radius) {
     this.pos = new Vector(100, 100);
     this.velocity = new Vector(0, 0);
