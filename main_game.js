@@ -1,24 +1,25 @@
 var canvas;
 var canvasContext;
+
 //game elements
 var Car = new Car(10);
 var World;
 var Pal;
+
 //mouse position
 var mouseX;
 var mouseY;
+
 //mose position in grid space
 var mouseGridX;
 var mouseGridY;
+
 //mouse click handling
 var mouseClicked = 0;
 var activeType = 1;
+
 //keyboard input handling
 var currentKeyPressed;
-
-const WORLD_ROWS = 14
-const WORLD_COLS = 20
-const GBRICK_SIZE = 40
 
 const SPACE = 32;
 const KEY_LEFT_ARROW = 37;
@@ -31,6 +32,18 @@ var reversePressed = false;
 var rightPressed = false;
 var leftPressed = false;
 var brakesPressed = false;
+
+//car steering modifiers
+const ACCELERATION = 0.15;
+const REVERSE = 0.15;
+const TURN_RATE = 0.1;
+const BRAKE_RATE = 0.8;
+const SPEED_DECAY = 0.98;
+
+//grid definitions
+const WORLD_ROWS = 14
+const WORLD_COLS = 20
+const GBRICK_SIZE = 40
 
 //IMAGES
 var carPic = document.createElement("img");

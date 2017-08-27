@@ -26,19 +26,19 @@ function Car(radius) {
 
     this.carController = function() {
         if (rightPressed == true) {
-            this.rot += 0.1;
+            this.rot += TURN_RATE;
         }
         if (leftPressed) {
-            this.rot -= 0.1;
+            this.rot -= TURN_RATE;
         }
         if (gasPressed) {
-            this.speed += 0.15;
+            this.speed += ACCELERATION;
         }
         if (reversePressed) {
-            this.speed -= 0.15;
+            this.speed -= ACCELERATION;
         }
         if (brakesPressed) {
-            this.speed *= 0.8;
+            this.speed *= BRAKE_RATE;
         }
     }
 
@@ -57,7 +57,7 @@ function Car(radius) {
     }
 
     this.updatePosition = function() {
-        this.speed *= 0.98;
+        this.speed *= SPEED_DECAY;
         this.carController();
         this.pos.X += Math.cos(this.rot) * this.speed;
         this.pos.Y += Math.sin(this.rot) * this.speed;
