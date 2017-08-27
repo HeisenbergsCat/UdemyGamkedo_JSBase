@@ -83,7 +83,9 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
 
         if (currentBrick.collisionCheck(collider)) {
             //if the car hits the wall, stop the car
-            collider.velocity.mult(-0.9);
+            collider.pos.X -= Math.cos(collider.rot) * collider.speed;
+            collider.pos.Y -= Math.sin(collider.rot) * collider.speed;
+            collider.speed *= -0.4;
         }
     }
 

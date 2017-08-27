@@ -25,10 +25,13 @@ const KEY_RIGHT_ARROW = 39;
 const KEY_UP_ARROW = 38;
 const KEY_DOWN_ARROW = 40;
 
-var keyD = false;
+var gasPressed = false;
+var reversePressed = false;
+var rightPressed = false;
+var leftPressed = false;
+var brakesPressed = false;
 
-//images
-
+//IMAGES
 var carPic = document.createElement("img");
 var carPicLoaded = false;
 
@@ -45,13 +48,41 @@ function calculateMousePos(evt) {
 }
 
 function keyPressed(evt) {
-    currentKeyPressed = evt.keyCode;
-    keyD = true;
+    currentKey = evt.keyCode;
+    if (currentKey == KEY_UP_ARROW) {
+        gasPressed = true;
+    }
+    if (currentKey == KEY_DOWN_ARROW) {
+        reversePressed = true;
+    }
+    if (currentKey == KEY_RIGHT_ARROW) {
+        rightPressed = true;
+    }
+    if (currentKey == KEY_LEFT_ARROW) {
+        leftPressed = true;
+    }
+    if (currentKey == SPACE) {
+        brakesPressed = true;
+    }
 }
 
 function keyReleased(evt) {
-    //console.log(evt.keyCode);
-    keyD = false;
+    currentKey = evt.keyCode;
+    if (currentKey == KEY_UP_ARROW) {
+        gasPressed = false;
+    }
+    if (currentKey == KEY_DOWN_ARROW) {
+        reversePressed = false;
+    }
+    if (currentKey == KEY_RIGHT_ARROW) {
+        rightPressed = false;
+    }
+    if (currentKey == KEY_LEFT_ARROW) {
+        leftPressed = false;
+    }
+    if (currentKey == SPACE) {
+        brakesPressed = false;
+    }
 }
 
 window.onload = function() {
