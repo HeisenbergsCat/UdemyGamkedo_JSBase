@@ -1,15 +1,8 @@
-//game elements
-var Car = new Car(10);
-var World;
-var Pal;
-
 //html
-var canvas;
-var canvasContext;
+var canvas, canvasContext;
 
-//IMAGES
-var carPic = document.createElement("img");
-var carPicLoaded = false;
+//game elements
+var Car, World, Pal;
 
 window.onload = function() {
 
@@ -19,30 +12,29 @@ window.onload = function() {
     var frameRate = 1000 / 30;
     setInterval(drawFrame, frameRate);
 
+    //DATA LOAD
+    carPic.src = "images/player1car.png";
+    carPic.onload = function() {
+        carPicLoaded = true;
+    }
+
     // INPUT HANDLING
     document.addEventListener('keydown', keyPressed);
     document.addEventListener('keyup', keyReleased);
-
     canvas.addEventListener('mousemove',
         function(evt) {
             calculateMousePos(evt);
         });
-
     canvas.addEventListener('mousedown', function(evt) {
         mouseClicked = 1;
     });
-
     canvas.addEventListener('mouseup', function(evt) {
         mouseClicked = 0;
     });
 
-    carPic.onload = function() {
-        carPicLoaded = true;
-    }
-    carPic.src = "images/player1car.png";
-
     //GAME OBJECT INITAL SETUP
-    Car.reset(2, 4);
+    Car = new Car();
+    Car.reset(CAR_START.X, CAR_START.Y);
 
     //PALETTE GRID GENERATION
     Pal = new Palette(0, 600 - GBRICK_SIZE);
@@ -54,24 +46,18 @@ window.onload = function() {
 }
 
 function updateMovement() {
-
-    //handles brick grid collision
     World.mainGridLoop(Car, mouseGridX, mouseGridY, mouseClicked);
-
-    //updates position of the ball
     Car.updatePosition();
 }
 
 //MAIN DRAWING LOOP
 function drawFrame() {
-
     drawBackground();
     drawObjects();
     updateMovement();
 }
 
 function drawObjects() {
-
     Pal.switchType(mouseClicked, mouseGridX, mouseGridY);
     Pal.renderPalGrid();
     Pal.renderPalCursor(mouseGridX, mouseGridY);
@@ -85,7 +71,6 @@ function drawObjects() {
 }
 
 function drawBackground() {
-
     canvasContext.fillStyle = "black";
     canvasContext.fillRect(0, 0, canvas.width, canvas.height);
 }

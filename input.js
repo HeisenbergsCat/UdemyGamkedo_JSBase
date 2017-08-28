@@ -8,7 +8,6 @@ var mouseGridY;
 
 //mouse click handling
 var mouseClicked = 0;
-var activeType = 1;
 
 //keyboard input handling
 var currentKeyPressed;

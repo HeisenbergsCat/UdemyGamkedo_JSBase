@@ -1,9 +1,13 @@
+//GLOBAL VAR INDICATING ACTIVE BRICK TYPE (FOR PAINTING)
+var activeType = 1;
+
+//PALETTE CONSTRUCTOR FUNCTION
 function Palette(posx, posy) {
     this.startposX = posx;
     this.startposY = posy;
     this.paletteSet = new Array();
     this.brickSize = GBRICK_SIZE;
-    this.totalTypes = 4;
+    this.totalTypes = 8;
 
     //generates grid of brick objects
     this.generatePalGrid = function() {
@@ -17,7 +21,7 @@ function Palette(posx, posy) {
 
     this.renderPalCursor = function(mouseGridX, mouseGridY) {
         var currentBrick = this.paletteSet[mouseGridX];
-        if (mouseGridY == 14 && mouseGridX < 4) {
+        if (mouseGridY == 14 && mouseGridX < this.totalTypes) {
             var currentBrick = this.paletteSet[mouseGridX];
             drawRectangle(currentBrick.pos.X, currentBrick.pos.Y,
                 currentBrick.BRICK_SIDE, currentBrick.BRICK_SIDE, "white", "stroke");
@@ -25,7 +29,7 @@ function Palette(posx, posy) {
     }
 
     this.switchType = function(clicked, mouseGridX, mouseGridY) {
-        if (mouseGridY == 14 && mouseGridX < 4) {
+        if (mouseGridY == 14 && mouseGridX < this.totalTypes) {
             var currentBrick = this.paletteSet[mouseGridX];
             if (clicked == 1) {
                 activeType = currentBrick.brickType;
@@ -41,5 +45,36 @@ function Palette(posx, posy) {
                 drawCircle(this.paletteSet[i].pos.X + 20, this.paletteSet[i].pos.Y + 20, 10, "white", "stroke")
             }
         }
+    }
+}
+
+function typeSwitch(type) {
+    switch (type) {
+        case 0:
+            return "Grey";
+            break;
+
+        case 1:
+            return "Red";
+            break;
+
+        case 2:
+            return "Blue";
+            break;
+
+        case 3:
+            return "green";
+            break;
+
+        case 4:
+            return "purple";
+            break;
+
+        case 5:
+            return "yellow";
+            break;
+
+        default:
+            return "White"
     }
 }

@@ -1,16 +1,18 @@
-//car steering modifiers
+//TEXTURES
+var carPic = document.createElement("img");
+var carPicLoaded = false;
+
+//CAR STEERING VARIABLES
 const ACCELERATION = 0.15;
 const REVERSE = 0.15;
 const TURN_RATE = 0.1;
 const BRAKE_RATE = 0.8;
 const SPEED_DECAY = 0.98;
 
-//grid definitions
-const WORLD_ROWS = 14
-const WORLD_COLS = 20
-const GBRICK_SIZE = 40
+const CAR_START = new Vector(1, 1);
 
-function Car(radius) {
+//CAR CONSTRUCTOR FUNCTION
+function Car() {
     this.pos = new Vector(100, 100);
     this.velocity = new Vector(0, 0);
     this.accelration = new Vector(0, 0);
@@ -20,16 +22,8 @@ function Car(radius) {
 
     this.render = function() {
         if (carPicLoaded) {
-            this.drawBitmapRotation(carPic, this.pos.X, this.pos.Y, this.rot);
+            drawBitmapRotation(carPic, this.pos.X, this.pos.Y, this.rot);
         }
-    }
-
-    this.drawBitmapRotation = function(carPic, posx, posy, ang) {
-        canvasContext.save();
-        canvasContext.translate(posx, posy);
-        canvasContext.rotate(ang);
-        canvasContext.drawImage(carPic, -carPic.width / 2, -carPic.height / 2);
-        canvasContext.restore();
     }
 
     this.applyForce = function(force) {

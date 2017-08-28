@@ -1,3 +1,9 @@
+//grid definitions
+const WORLD_ROWS = 14
+const WORLD_COLS = 20
+const GBRICK_SIZE = 40
+
+//BRICK GRID CONSTRUCTOR FUNCTION
 function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
