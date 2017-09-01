@@ -53,27 +53,21 @@ function typeSwitch(type) {
         case 0:
             return "Grey";
             break;
-
         case 1:
             return "Red";
             break;
-
         case 2:
             return "Blue";
             break;
-
         case 3:
             return "green";
             break;
-
         case 4:
             return "purple";
             break;
-
         case 5:
             return "yellow";
             break;
-
         default:
             return "White"
     }

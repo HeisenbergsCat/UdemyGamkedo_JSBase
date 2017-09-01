@@ -14,10 +14,9 @@ function Brick(posx, posy, type) {
     //draws brick on the screen
     this.render = function(gap) {
         const GAP = gap
-        if (this.alive) {
-            this.col = typeSwitch(this.brickType);
-            drawRectangle(this.pos.X, this.pos.Y, this.BRICK_SIDE - GAP, this.BRICK_SIDE - GAP, this.col, "fill");
-        }
+        this.col = typeSwitch(this.brickType);
+        drawRectangle(this.pos.X, this.pos.Y, this.BRICK_SIDE - GAP, this.BRICK_SIDE - GAP, this.col, "fill");
+
     }
 
     //refactored from collisionCheck for clarity
