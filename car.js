@@ -1,7 +1,3 @@
-//TEXTURES
-var carPic = document.createElement("img");
-var carPicLoaded = false;
-
 //CAR STEERING VARIABLES
 const ACCELERATION = 0.15;
 const REVERSE = 0.15;

@@ -7,7 +7,7 @@ function Palette(posx, posy) {
     this.startposY = posy;
     this.paletteSet = new Array();
     this.brickSize = GBRICK_SIZE;
-    this.totalTypes = 8;
+    this.totalTypes = 14;
 
     //generates grid of brick objects
     this.generatePalGrid = function() {

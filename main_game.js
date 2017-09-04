@@ -4,6 +4,30 @@ var canvas, canvasContext;
 //game elements
 var Car, World, Pal;
 
+var carPicLoaded = false;
+
+//TEXTURES
+//TODO - make it more reasonable
+var carPic = document.createElement("img");
+
+var asphA = document.createElement("img");
+var grassA = document.createElement("img");
+
+var curb_R = document.createElement("img");
+var curb_L = document.createElement("img");
+var curb_T = document.createElement("img");
+var curb_B = document.createElement("img");
+
+var corner_TR = document.createElement("img");
+var corner_TL = document.createElement("img");
+var corner_BR = document.createElement("img");
+var corner_BL = document.createElement("img");
+
+var cornerB_TR = document.createElement("img");
+var cornerB_TL = document.createElement("img");
+var cornerB_BR = document.createElement("img");
+var cornerB_BL = document.createElement("img");
+
 window.onload = function() {
 
     // CANVAS SETUP
@@ -14,6 +38,25 @@ window.onload = function() {
 
     //DATA LOAD
     carPic.src = "images/player1car.png";
+
+    asphA.src = "images/aspha.png"
+    grassA.src = "images/grassA.png"
+
+    curb_R.src = "images/curb_R.png"
+    curb_L.src = "images/curb_L.png"
+    curb_B.src = "images/curb_B.png"
+    curb_T.src = "images/curb_T.png"
+
+    corner_TR.src = "images/corner_TR.png"
+    corner_TL.src = "images/corner_TL.png"
+    corner_BR.src = "images/corner_BR.png"
+    corner_BL.src = "images/corner_BL.png"
+
+    cornerB_TR.src = "images/cornerB_TR.png"
+    cornerB_TL.src = "images/cornerB_TL.png"
+    cornerB_BR.src = "images/cornerB_BR.png"
+    cornerB_BL.src = "images/cornerB_BL.png"
+
     carPic.onload = function() {
         carPicLoaded = true;
     }
@@ -52,7 +95,6 @@ function updateMovement() {
 
 //MAIN DRAWING LOOP
 function drawFrame() {
-    drawBackground();
     drawObjects();
     updateMovement();
 }
