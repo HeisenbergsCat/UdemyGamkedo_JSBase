@@ -24,6 +24,22 @@ var rightPressed = false;
 var leftPressed = false;
 var brakesPressed = false;
 
+function inputSetup() {
+
+    document.addEventListener('keydown', keyPressed);
+    document.addEventListener('keyup', keyReleased);
+    canvas.addEventListener('mousemove',
+        function(evt) {
+            calculateMousePos(evt);
+        });
+    canvas.addEventListener('mousedown', function(evt) {
+        mouseClicked = 1;
+    });
+    canvas.addEventListener('mouseup', function(evt) {
+        mouseClicked = 0;
+    });
+}
+
 //MOUSE MOVEMENT
 function calculateMousePos(evt) {
     var rect = canvas.getBoundingClientRect()

@@ -4,7 +4,56 @@ function Brick(posx, posy, type) {
     this.brickType = type;
     this.alive = true;
     this.col = "black"
+    this.image = asphA;
 
+    this.switchType = function() {
+        switch (this.brickType) {
+            case 0:
+                this.image = asphA;
+                break;
+            case 1:
+                this.image = curb_R;
+                break;
+            case 2:
+                this.image = curb_L;
+                break;
+            case 3:
+                this.image = curb_T;
+                break;
+            case 4:
+                this.image = curb_B;
+                break;
+            case 5:
+                this.image = corner_TR;
+                break;
+            case 6:
+                this.image = corner_TL;
+                break;
+            case 7:
+                this.image = corner_BR;
+                break;
+            case 8:
+                this.image = corner_BL;
+                break;
+            case 9:
+                this.image = cornerB_TR;
+                break;
+            case 10:
+                this.image = cornerB_TL;
+                break;
+            case 11:
+                this.image = cornerB_BR;
+                break;
+            case 12:
+                this.image = cornerB_BL;
+                break;
+            case 13:
+                this.image = grassA;
+                break;
+            default:
+                this.image = grassA;
+        }
+    }
 
     //gets brick's side length
     this.getSize = function() {
@@ -12,41 +61,8 @@ function Brick(posx, posy, type) {
     }
 
     //draws brick on the screen
-    this.render = function(gap) {
-        const GAP = gap
-        this.col = typeSwitch(this.brickType);
-        if (this.brickType == 0) {
-            canvasContext.drawImage(asphA, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 1) {
-            canvasContext.drawImage(curb_R, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 2) {
-            canvasContext.drawImage(curb_L, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 3) {
-            canvasContext.drawImage(curb_T, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 4) {
-            canvasContext.drawImage(curb_B, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 5) {
-            canvasContext.drawImage(corner_TR, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 6) {
-            canvasContext.drawImage(corner_TL, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 7) {
-            canvasContext.drawImage(corner_BR, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 8) {
-            canvasContext.drawImage(corner_BL, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 9) {
-            canvasContext.drawImage(cornerB_TR, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 10) {
-            canvasContext.drawImage(cornerB_TL, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 11) {
-            canvasContext.drawImage(cornerB_BR, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 12) {
-            canvasContext.drawImage(cornerB_BL, this.pos.X, this.pos.Y);
-        } else if (this.brickType == 13) {
-            canvasContext.drawImage(grassA, this.pos.X, this.pos.Y);
-        } else {
-            drawRectangle(this.pos.X, this.pos.Y, this.BRICK_SIDE - GAP, this.BRICK_SIDE - GAP, this.col, "fill");
-        }
-
+    this.render = function() {
+        canvasContext.drawImage(this.image, this.pos.X, this.pos.Y);
     }
 
     //refactored from collisionCheck for clarity

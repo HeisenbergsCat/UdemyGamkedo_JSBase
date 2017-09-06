@@ -15,6 +15,7 @@ function Palette(posx, posy) {
         var offset = 0;
         for (var i = 0; i < this.totalTypes; i++) {
             this.paletteSet[i] = new Brick(brickPos.X + offset, brickPos.Y, i);
+            this.paletteSet[i].switchType();
             offset += GBRICK_SIZE;
         }
     }
@@ -45,30 +46,5 @@ function Palette(posx, posy) {
                 drawCircle(this.paletteSet[i].pos.X + 20, this.paletteSet[i].pos.Y + 20, 10, "white", "stroke")
             }
         }
-    }
-}
-
-function typeSwitch(type) {
-    switch (type) {
-        case 0:
-            return "Grey";
-            break;
-        case 1:
-            return "Red";
-            break;
-        case 2:
-            return "Blue";
-            break;
-        case 3:
-            return "green";
-            break;
-        case 4:
-            return "purple";
-            break;
-        case 5:
-            return "yellow";
-            break;
-        default:
-            return "White"
     }
 }

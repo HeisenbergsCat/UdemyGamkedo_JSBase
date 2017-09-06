@@ -10,10 +10,6 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
     this.world = new Array();
     this.brickSize = GBRICK_SIZE;
 
-    this.points = 0;
-    this.level = 1;
-
-
     //initialization of two dimensional array
     for (var i = 0; i < this.sizeY; i++) {
         this.world[i] = new Array();
@@ -45,6 +41,7 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
             var currentBrick = this.world[mouseGridY][mouseGridX];
             if (clicked == 1) {
                 currentBrick.brickType = activeType;
+                currentBrick.switchType();
             }
         }
     }
@@ -57,11 +54,11 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
         }
     }
 
-    this.mainGridLoop = function(collider, mouseGridX, mouseGridY, clicked) {
+    this.gridCollisionCheck = function(collider, mouseGridX, mouseGridY, clicked) {
         for (var row = 0; row < this.sizeY; row++) {
             for (var col = 0; col < this.sizeX; col++) {
                 //check collisions
-                this.checkGridCollisions(collider, row, col);
+                this.checkTileCollisions(collider, row, col);
             }
         }
     }
@@ -82,9 +79,7 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
         }
     }
 
-    //TODO: Figure out better way to handle collisions
-    //checks if the ball hit the brick
-    this.checkGridCollisions = function(collider, row, col) {
+    this.checkTileCollisions = function(collider, row, col) {
         var currentBrick = this.world[row][col];
 
         if (currentBrick.collisionCheck(collider)) {

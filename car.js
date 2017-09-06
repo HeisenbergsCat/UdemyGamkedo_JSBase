@@ -17,9 +17,7 @@ function Car() {
     this.speed = 0;
 
     this.render = function() {
-        if (carPicLoaded) {
-            drawBitmapRotation(carPic, this.pos.X, this.pos.Y, this.rot);
-        }
+        drawBitmapRotation(carPic, this.pos.X, this.pos.Y, this.rot);
     }
 
     this.applyForce = function(force) {
