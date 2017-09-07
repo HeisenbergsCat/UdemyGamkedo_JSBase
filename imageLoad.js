@@ -29,6 +29,7 @@ var allImages = [
     { varName: curb_B, path: "images/curb_B.png" },
     { varName: corner_TR, path: "images/corner_TR.png" },
     { varName: corner_TL, path: "images/corner_TL.png" },
+    { varName: corner_BR, path: "images/corner_BR.png" },
     { varName: corner_BL, path: "images/corner_BL.png" },
     { varName: cornerB_TR, path: "images/cornerB_TR.png" },
     { varName: cornerB_TL, path: "images/cornerB_TL.png" },

@@ -8,14 +8,46 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
     this.world = new Array();
+    this.tileTypes = new Array();
     this.brickSize = GBRICK_SIZE;
 
     //initialization of two dimensional array
     for (var i = 0; i < this.sizeY; i++) {
         this.world[i] = new Array();
+        this.tileTypes[i] = new Array();
     }
 
     //generates grid of brick objects
+    this.initTypeGrid = function() {
+        var brickPos = new Vector(startposX, startposY);
+
+        //generate main grid
+        for (var row = 0; row < this.sizeY; row++) {
+            for (var col = 0; col < this.sizeX; col++) {
+                this.tileTypes[row][col] = 0;
+            }
+        }
+    }
+
+    this.loadLevel = function() {
+        this.tileTypes = [
+            [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ]
+    }
+
     this.gnerateGrid = function() {
         var brickPos = new Vector(startposX, startposY);
 
@@ -23,13 +55,15 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
         for (var row = 0; row < this.sizeY; row++) {
             for (var col = 0; col < this.sizeX; col++) {
 
+                var type = this.tileTypes[row][col];
+
                 //sets next brick positions in columns and rows
                 brickPos.Y = startposY + (this.brickSize * row);
                 brickPos.X = startposX + (this.brickSize * col);
 
                 //creates brick object at current column and row
-                this.world[row][col] = new Brick(brickPos.X, brickPos.Y, 0);
-                this.world[row][col].alive = true;
+                this.world[row][col] = new Brick(brickPos.X, brickPos.Y, type);
+                this.world[row][col].switchType(type);
             }
             //sets back column index to 0
             brickPos.X = startposX;
@@ -40,7 +74,8 @@ function brickGrid(startposX, startposY, sizeX, sizeY, collider) {
         if (mouseGridY < yBound) {
             var currentBrick = this.world[mouseGridY][mouseGridX];
             if (clicked == 1) {
-                currentBrick.brickType = activeType;
+                this.tileTypes[mouseGridY][mouseGridX] = activeType;
+                currentBrick.brickType = this.tileTypes[mouseGridY][mouseGridX];;
                 currentBrick.switchType();
             }
         }

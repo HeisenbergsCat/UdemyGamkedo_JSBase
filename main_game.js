@@ -29,6 +29,8 @@ function gameSetup() {
 
     //WORLD GRID GENERATION
     World = new brickGrid(0, 0, WORLD_COLS, WORLD_ROWS);
+    World.initTypeGrid();
+    World.loadLevel();
     World.gnerateGrid();
 }
 
