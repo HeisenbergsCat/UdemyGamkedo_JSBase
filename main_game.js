@@ -5,6 +5,11 @@ var canvas, canvasContext;
 var Car, World, Pal;
 
 window.onload = function() {
+    canvas = document.getElementById("GameCanvas");
+    canvasContext = canvas.getContext("2d");
+
+    drawRectangle(0, 0, canvas.width, canvas.height, "black", "fill")
+    showText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, "white");
 
     imagesLoad();
     // CANVAS SETUP
@@ -12,8 +17,6 @@ window.onload = function() {
 
 function gameSetup() {
 
-    canvas = document.getElementById("GameCanvas");
-    canvasContext = canvas.getContext("2d");
     var frameRate = 1000 / 30;
     setInterval(drawFrame, frameRate);
 

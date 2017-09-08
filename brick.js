@@ -85,7 +85,7 @@ function Brick(posx, posy, type) {
 
     //checks if objects is colliding with self
     this.collisionCheck = function(collider) {
-        if (this.alive && this.brickType != 0) {
+        if (this.brickType != 0) {
             if (this.collisionX(collider) && this.collisionY(collider)) {
                 return true;
             } else {

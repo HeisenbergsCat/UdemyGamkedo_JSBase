@@ -61,6 +61,7 @@ function Car() {
         this.carController();
         this.pos.X += Math.cos(this.rot) * this.speed;
         this.pos.Y += Math.sin(this.rot) * this.speed;
+        this.wrapEdges();
 
         /*
         this.velocity.add(this.accelration);
@@ -84,5 +85,12 @@ function Car() {
         } else {
             return false;
         }
+    }
+
+    this.wrapEdges = function() {
+        if (this.pos.Y < 0) { this.pos.Y = canvas.height - GBRICK_SIZE; }
+        if (this.pos.Y > canvas.height - GBRICK_SIZE) { this.pos.Y = 0; }
+        if (this.pos.X < 0) { this.pos.X = canvas.width; }
+        if (this.pos.X > canvas.width) { this.pos.X = 0 }
     }
 } // end of constructor function Car
