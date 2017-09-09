@@ -84,7 +84,6 @@ function Brick(posx, posy, type) {
     //draws brick on the screen
     this.render = function() {
         canvasContext.drawImage(this.image, this.pos.X, this.pos.Y);
-
         if (this.brickType != 0) {
             this.drawCollisionBox();
         }

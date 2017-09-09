@@ -13,33 +13,27 @@ function Car() {
     this.pos = new Vector(100, 100);
     this.rot = 0;
     this.speed = 0;
-
-    /*
-    FOR PHYSICS CALCULATIONS
-    this.velocity = new Vector(0, 0);
-    this.accelration = new Vector(0, 0);
-    
-    this.applyForce = function(force) {
-        this.accelration.add(force);
-    }
-
-    this.calcSpeed = function() {
-        speed = new Vector(Math.cos(this.rot), Math.sin(this.rot));
-        speed.unit();
-        return speed;
-    }
-
-    this.calcDrag = function() {
-        drag = new Vector(this.accelration.X, this.accelration.Y);
-        drag.unit();
-        drag.mult(-1);
-        drag.mult(0.9);
-        return drag;
-    }
-    */
+    this.col = "blue";
 
     this.render = function() {
         drawBitmapRotation(carPic, this.pos.X, this.pos.Y, this.rot);
+        this.renderVector();
+    }
+
+    this.getSpeedVector = function() {
+        var returnSpeed = new Vector(Math.cos(this.rot), Math.sin(this.rot));
+        returnSpeed.unit();
+        returnSpeed.X *= this.speed;
+        returnSpeed.Y *= this.speed;
+        return returnSpeed;
+    }
+
+    this.renderVector = function() {
+        var speedVector = this.getSpeedVector();
+        drawLine(this.pos.X, this.pos.Y,
+            this.pos.X + (speedVector.X * 2.5),
+            this.pos.Y + (speedVector.Y * 2.5),
+            "white");
     }
 
     this.carController = function() {
@@ -70,13 +64,6 @@ function Car() {
         this.pos.Y += Math.sin(this.rot) * this.speed;
         //let the car wrap around canvas edges
         this.wrapEdges();
-
-        /*
-        IF PHYSICS
-        this.velocity.add(this.accelration);
-        this.pos.add(this.velocity);
-        this.accelration.mult(0);
-        */
     }
 
     this.reset = function(posx, posy) {
@@ -86,10 +73,10 @@ function Car() {
 
     //collision check
     this.collisionCheck = function(collisionObject) {
-        if (this.pos.Y > collisionObject.pos.Y - this.radius &&
-            this.pos.X > collisionObject.pos.X &&
-            this.pos.X < collisionObject.pos.X + collisionObject.width &&
-            this.pos.Y < collisionObject.pos.Y + collisionObject.height) {
+        if (collisionPoint.Y > collisionObject.pos.Y &&
+            collisionPoint.X > collisionObject.pos.X &&
+            collisionPoint.X < collisionObject.pos.X + collisionObject.width &&
+            collisionPoint.Y < collisionObject.pos.Y + collisionObject.height) {
             return true;
         } else return false;
     }

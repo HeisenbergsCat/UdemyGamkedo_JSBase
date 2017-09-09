@@ -27,6 +27,14 @@ function drawCircle(posX, posY, radius, color, mode) {
     }
 }
 
+function drawLine(startX, startY, endX, endY, color) {
+    canvasContext.strokeStyle = color;
+    canvasContext.beginPath();
+    canvasContext.moveTo(startX, startY);
+    canvasContext.lineTo(endX, endY);
+    canvasContext.stroke();
+}
+
 function drawBitmapRotation(Pic, posx, posy, ang) {
     canvasContext.save();
     canvasContext.translate(posx, posy);
