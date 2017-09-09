@@ -1,45 +1,26 @@
 //CAR STEERING VARIABLES
 const ACCELERATION = 0.15;
 const REVERSE = 0.15;
-const TURN_RATE = 0.1;
+const TURN_RATE = 0.15;
 const BRAKE_RATE = 0.8;
 const SPEED_DECAY = 0.98;
+const TURN_MULT = 6;
 
 const CAR_START = new Vector(1, 1);
 
 //CAR CONSTRUCTOR FUNCTION
 function Car() {
     this.pos = new Vector(100, 100);
-    this.velocity = new Vector(0, 0);
-    this.accelration = new Vector(0, 0);
-
     this.rot = 0;
     this.speed = 0;
 
-    this.render = function() {
-        drawBitmapRotation(carPic, this.pos.X, this.pos.Y, this.rot);
-    }
-
+    /*
+    FOR PHYSICS CALCULATIONS
+    this.velocity = new Vector(0, 0);
+    this.accelration = new Vector(0, 0);
+    
     this.applyForce = function(force) {
         this.accelration.add(force);
-    }
-
-    this.carController = function() {
-        if (rightPressed == true) {
-            this.rot += TURN_RATE;
-        }
-        if (leftPressed) {
-            this.rot -= TURN_RATE;
-        }
-        if (gasPressed) {
-            this.speed += ACCELERATION;
-        }
-        if (reversePressed) {
-            this.speed -= ACCELERATION;
-        }
-        if (brakesPressed) {
-            this.speed *= BRAKE_RATE;
-        }
     }
 
     this.calcSpeed = function() {
@@ -55,15 +36,43 @@ function Car() {
         drag.mult(0.9);
         return drag;
     }
+    */
+
+    this.render = function() {
+        drawBitmapRotation(carPic, this.pos.X, this.pos.Y, this.rot);
+    }
+
+    this.carController = function() {
+        if (rightPressed) {
+            this.rot += TURN_RATE * (this.speed / TURN_MULT);
+        }
+        if (leftPressed) {
+            this.rot -= TURN_RATE * (this.speed / TURN_MULT);
+        }
+        if (gasPressed) {
+            this.speed += ACCELERATION;
+        }
+        if (reversePressed) {
+            this.speed -= ACCELERATION;
+        }
+        if (brakesPressed) {
+            this.speed *= BRAKE_RATE;
+        }
+    }
 
     this.updatePosition = function() {
+        //decrement speed little bit each frame
         this.speed *= SPEED_DECAY;
+        //update speed and rotation based on input
         this.carController();
+        //move the car: calculate move vector based on eucledian coordinates (rotation) and speed, add to position
         this.pos.X += Math.cos(this.rot) * this.speed;
         this.pos.Y += Math.sin(this.rot) * this.speed;
+        //let the car wrap around canvas edges
         this.wrapEdges();
 
         /*
+        IF PHYSICS
         this.velocity.add(this.accelration);
         this.pos.add(this.velocity);
         this.accelration.mult(0);
@@ -82,9 +91,7 @@ function Car() {
             this.pos.X < collisionObject.pos.X + collisionObject.width &&
             this.pos.Y < collisionObject.pos.Y + collisionObject.height) {
             return true;
-        } else {
-            return false;
-        }
+        } else return false;
     }
 
     this.wrapEdges = function() {

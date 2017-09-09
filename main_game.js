@@ -50,6 +50,7 @@ function drawFrame() {
 }
 
 function drawObjects() {
+    drawBackground();
     Pal.switchType(mouseClicked, mouseGridX, mouseGridY);
     Pal.renderPalGrid();
     Pal.renderPalCursor(mouseGridX, mouseGridY);

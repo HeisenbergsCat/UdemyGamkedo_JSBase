@@ -7,6 +7,7 @@ function showText(plainText, posX, posY, color) {
 function drawRectangle(posX, posY, width, height, color, mode) {
     canvasContext.fillStyle = color;
     canvasContext.strokeStyle = color;
+    canvasContext.lineWidth = 2;
     if (mode == "fill") {
         canvasContext.fillRect(posX, posY, width, height);
     } else if (mode == "stroke") {
