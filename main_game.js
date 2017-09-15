@@ -2,7 +2,10 @@
 var canvas, canvasContext;
 
 //game elements
-var Car, World, Pal;
+var CarA = new Car(1);
+var CarB = new Car(2);
+var World, Pal;
+const COUNT_DELAY = 2600;
 
 window.onload = function() {
     canvas = document.getElementById("GameCanvas");
@@ -23,8 +26,9 @@ function gameSetup() {
     inputSetup();
 
     //GAME OBJECT INITAL SETUP
-    Car = new Car();
-    Car.reset(CAR_START.X, CAR_START.Y);
+
+    CarA.reset(CAR_START.X, CAR_START.Y);
+    CarB.reset(CAR_START.X, CAR_START.Y + 1);
 
     //PALETTE GRID GENERATION
     Pal = new Palette(0, 600 - GBRICK_SIZE);
@@ -33,14 +37,33 @@ function gameSetup() {
     //WORLD GRID GENERATION
     World = new brickGrid(0, 0, WORLD_COLS, WORLD_ROWS);
     World.initTypeGrid();
-    World.loadLevel();
-    World.gnerateGrid();
+    World.loadLevel(World.levelOne);
+}
+
+function countDown(milisec) {
+    setTimeout(function() {
+        inputEnabled = true;
+        console.log("GOGOGO!");
+    }, milisec);
+
+}
+
+function drawCount() {
+    if (!inputEnabled) {
+        drawCircle(400, 300, 80, "red", "fill");
+    }
+}
+
+function disableInput() {
+    inputEnabled = false;
 }
 
 
 function updateMovement() {
-    World.gridCollisionCheck(Car, mouseGridX, mouseGridY, mouseClicked);
-    Car.updatePosition();
+    World.gridCollisionCheck(CarA, mouseGridX, mouseGridY);
+    World.gridCollisionCheck(CarB, mouseGridX, mouseGridY);
+    CarA.updatePosition();
+    CarB.updatePosition();
 }
 
 //MAIN DRAWING LOOP
@@ -59,8 +82,12 @@ function drawObjects() {
     World.renderGrid();
     World.renderCursor(mouseGridX, mouseGridY, WORLD_ROWS);
 
-    Car.render();
+    CarA.render();
+    CarB.render();
+
+    drawCount();
     renderMousePos();
+
 }
 
 function drawBackground() {

@@ -8,15 +8,50 @@ const TURN_MULT = 6;
 
 const CAR_START = new Vector(1, 1);
 
+
+
 //CAR CONSTRUCTOR FUNCTION
-function Car() {
+function Car(player) {
     this.pos = new Vector(100, 100);
     this.rot = 0;
     this.speed = 0;
-    this.col = "blue";
+    this.player = player;
+
+    this.gasPressed = false;
+    this.reversePressed = false;
+    this.rightPressed = false;
+    this.leftPressed = false;
+    this.brakesPressed = false;
+
+    this.key_up;
+    this.key_down;
+    this.key_right;
+    this.key_left;
+    this.brake;
+
 
     this.render = function() {
-        drawBitmapRotation(carPic, this.pos.X, this.pos.Y, this.rot);
+        switch (this.player) {
+            case 1:
+                drawBitmapRotation(carPic, this.pos.X, this.pos.Y, this.rot);
+                this.key_up = KEY_UP_ARROW;
+                this.key_down = KEY_DOWN_ARROW;
+                this.key_right = KEY_RIGHT_ARROW;
+                this.key_left = KEY_LEFT_ARROW;
+                this.brake = SPACE;
+                break;
+            case 2:
+                drawBitmapRotation(carPicRed, this.pos.X, this.pos.Y, this.rot);
+                this.key_up = 87;
+                this.key_down = 83;
+                this.key_right = 68;
+                this.key_left = 65;
+                this.brake = 16;
+                break;
+            default:
+                drawBitmapRotation(carPic, this.pos.X, this.pos.Y, this.rot);
+        }
+
         this.renderVector();
     }
 
@@ -37,20 +72,22 @@ function Car() {
     }
 
     this.carController = function() {
-        if (rightPressed) {
-            this.rot += TURN_RATE * (this.speed / TURN_MULT);
-        }
-        if (leftPressed) {
-            this.rot -= TURN_RATE * (this.speed / TURN_MULT);
-        }
-        if (gasPressed) {
-            this.speed += ACCELERATION;
-        }
-        if (reversePressed) {
-            this.speed -= ACCELERATION;
-        }
-        if (brakesPressed) {
-            this.speed *= BRAKE_RATE;
+        if (inputEnabled) {
+            if (this.rightPressed) {
+                this.rot += TURN_RATE * (this.speed / TURN_MULT);
+            }
+            if (this.leftPressed) {
+                this.rot -= TURN_RATE * (this.speed / TURN_MULT);
+            }
+            if (this.gasPressed) {
+                this.speed += ACCELERATION;
+            }
+            if (this.reversePressed) {
+                this.speed -= ACCELERATION;
+            }
+            if (this.brakesPressed) {
+                this.speed *= BRAKE_RATE;
+            }
         }
     }
 
@@ -69,6 +106,8 @@ function Car() {
     this.reset = function(posx, posy) {
         this.pos.X = Math.floor(posx * GBRICK_SIZE) + GBRICK_SIZE / 2;
         this.pos.Y = Math.floor(posy * GBRICK_SIZE) + GBRICK_SIZE / 2;
+        this.speed = 0;
+        this.rot = 0;
     }
 
     //collision check

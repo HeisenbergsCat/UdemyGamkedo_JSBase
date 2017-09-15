@@ -18,11 +18,7 @@ const KEY_RIGHT_ARROW = 39;
 const KEY_UP_ARROW = 38;
 const KEY_DOWN_ARROW = 40;
 
-var gasPressed = false;
-var reversePressed = false;
-var rightPressed = false;
-var leftPressed = false;
-var brakesPressed = false;
+var inputEnabled = false;
 
 function inputSetup() {
 
@@ -53,40 +49,35 @@ function calculateMousePos(evt) {
 }
 
 //KEYBOARD INPUT
+
+function setKeys(whichCar, setState, cKey) {
+
+    if (currentKey == whichCar.key_up) {
+        whichCar.gasPressed = setState;
+    }
+    if (currentKey == whichCar.key_down) {
+        whichCar.reversePressed = setState;
+    }
+    if (currentKey == whichCar.key_right) {
+        whichCar.rightPressed = setState;
+    }
+    if (currentKey == whichCar.key_left) {
+        whichCar.leftPressed = setState;
+    }
+    if (currentKey == whichCar.brake) {
+        whichCar.brakesPressed = setState;
+    }
+
+}
+
 function keyPressed(evt) {
     currentKey = evt.keyCode;
-    if (currentKey == KEY_UP_ARROW) {
-        gasPressed = true;
-    }
-    if (currentKey == KEY_DOWN_ARROW) {
-        reversePressed = true;
-    }
-    if (currentKey == KEY_RIGHT_ARROW) {
-        rightPressed = true;
-    }
-    if (currentKey == KEY_LEFT_ARROW) {
-        leftPressed = true;
-    }
-    if (currentKey == SPACE) {
-        brakesPressed = true;
-    }
+    setKeys(CarA, true, currentKey)
+    setKeys(CarB, true, currentKey)
 }
 
 function keyReleased(evt) {
     currentKey = evt.keyCode;
-    if (currentKey == KEY_UP_ARROW) {
-        gasPressed = false;
-    }
-    if (currentKey == KEY_DOWN_ARROW) {
-        reversePressed = false;
-    }
-    if (currentKey == KEY_RIGHT_ARROW) {
-        rightPressed = false;
-    }
-    if (currentKey == KEY_LEFT_ARROW) {
-        leftPressed = false;
-    }
-    if (currentKey == SPACE) {
-        brakesPressed = false;
-    }
+    setKeys(CarA, false, currentKey)
+    setKeys(CarB, false, currentKey)
 }

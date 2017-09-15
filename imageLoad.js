@@ -1,7 +1,9 @@
 //VARIABLES
 var carPic = document.createElement("img");
+var carPicRed = document.createElement("img");
 
 var asphA = document.createElement("img");
+var finish = document.createElement("img");
 var grassA = document.createElement("img");
 
 var curb_R = document.createElement("img");
@@ -21,6 +23,7 @@ var cornerB_BL = document.createElement("img");
 
 var allImages = [
     { varName: carPic, path: "images/player1car.png" },
+    { varName: carPicRed, path: "images/player2car.png" },
     { varName: asphA, path: "images/asphA.png" },
     { varName: grassA, path: "images/grassA.png" },
     { varName: curb_R, path: "images/curb_R.png" },
@@ -34,7 +37,8 @@ var allImages = [
     { varName: cornerB_TR, path: "images/cornerB_TR.png" },
     { varName: cornerB_TL, path: "images/cornerB_TL.png" },
     { varName: cornerB_BR, path: "images/cornerB_BR.png" },
-    { varName: cornerB_BL, path: "images/cornerB_BL.png" }
+    { varName: cornerB_BL, path: "images/cornerB_BL.png" },
+    { varName: finish, path: "images/finish.png" }
 ];
 
 var imagesToLoad = allImages.length;
