@@ -33,7 +33,7 @@ function Palette(posx, posy) {
         if (mouseGridY == 14 && mouseGridX < this.totalTypes) {
             var currentBrick = this.paletteSet[mouseGridX];
             if (clicked == 1) {
-                activeType = currentBrick.brickType;
+                activeType = currentBrick.tileType;
             }
         }
     }
@@ -42,7 +42,7 @@ function Palette(posx, posy) {
     this.renderPalGrid = function() {
         for (var i = 0; i < this.paletteSet.length; i++) {
             this.paletteSet[i].render(1);
-            if (this.paletteSet[i].brickType == activeType) {
+            if (this.paletteSet[i].tileType == activeType) {
                 drawCircle(this.paletteSet[i].pos.X + 20, this.paletteSet[i].pos.Y + 20, 10, "white", "stroke")
             }
         }

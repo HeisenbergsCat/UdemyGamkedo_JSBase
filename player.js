@@ -3,8 +3,7 @@ const PLAYER_START = new Vector(1, 1);
 //PLAYER CONSTRUCTOR FUNCTION
 function Player(player) {
     this.pos = new Vector(100, 100);
-    this.speed = 4;
-    this.accel = 0;
+    this.accel = 8;
     this.player = player;
 
     this.upPressed = false;
@@ -14,44 +13,54 @@ function Player(player) {
     this.triggerPressed = false;
 
     this.render = function() {
+
         drawBitmapRotation(carPic, this.pos.X, this.pos.Y, this.rot);
+        this.renderBox();
     }
 
     this.carController = function() {
+
+
         if (this.rightPressed) {
-            this.accel += this.speed;
             this.pos.X += this.accel;
-            this.accel *= 0;
+            if (this.collisionCheck()) {
+                var playerGridPos = this.getPlayerGridPosition();
+                var collisionTile = World.world[playerGridPos.Y][playerGridPos.X];
+                this.pos.X = collisionTile.colBox.X - 5;
+            }
         }
         if (this.leftPressed) {
-            this.accel += this.speed;
             this.pos.X -= this.accel;
-            this.accel *= 0;
+            if (this.collisionCheck()) {
+                var playerGridPos = this.getPlayerGridPosition();
+                var collisionTile = World.world[playerGridPos.Y][playerGridPos.X];
+                this.pos.X = collisionTile.colBoxTrueEnd.X + 5;
+            }
         }
         if (this.upPressed) {
             this.pos.Y -= this.accel;
+            if (this.collisionCheck()) {
+                var playerGridPos = this.getPlayerGridPosition();
+                var collisionTile = World.world[playerGridPos.Y][playerGridPos.X];
+                this.pos.Y = collisionTile.colBoxTrueEnd.Y + 5;
+            }
         }
         if (this.downPressed) {
             this.pos.Y += this.accel;
+            if (this.collisionCheck()) {
+                var playerGridPos = this.getPlayerGridPosition();
+                var collisionTile = World.world[playerGridPos.Y][playerGridPos.X];
+                this.pos.Y = collisionTile.colBox.Y - 5;
+            }
         }
         if (this.triggerPressed) {
             console.log("fire!");
-            this.stopped();
         }
-    }
-    this.stopped = function() {
-        this.accel = 0;
     }
 
     this.updatePosition = function() {
-        this.carController();
         this.wrapEdges();
-
-
-        if (this.collisionCheck()) {
-            this.accel = 0;
-            console.log("collision");
-        }
+        this.carController();
     }
 
     this.reset = function(posx, posy) {
@@ -65,10 +74,10 @@ function Player(player) {
         var collisionTile = World.world[playerGridPos.Y][playerGridPos.X];
         if (collisionTile != undefined) {
             if (collisionTile.collider == true) {
-                if (this.pos.Y > collisionTile.colBox.Y &&
-                    this.pos.X > collisionTile.colBox.X &&
-                    this.pos.X < collisionTile.colBox.X + collisionTile.colBoxEnd.X &&
-                    this.pos.Y < collisionTile.colBox.Y + collisionTile.colBoxEnd.Y) {
+                if (this.pos.Y + 5 > collisionTile.colBox.Y &&
+                    this.pos.X + 5 > collisionTile.colBox.X &&
+                    this.pos.X - 5 < collisionTile.colBox.X + (collisionTile.colBoxTrueEnd.X - collisionTile.pos.X) &&
+                    this.pos.Y - 5 < collisionTile.colBox.Y + (collisionTile.colBoxTrueEnd.Y - collisionTile.pos.Y)) {
                     return true;
                 } else return false;
             }
@@ -80,9 +89,16 @@ function Player(player) {
         var playerGridPos = new Vector();
         playerGridPos.X = Math.floor(this.pos.X / GTILE_SIZE);
         playerGridPos.Y = Math.floor(this.pos.Y / GTILE_SIZE);
-
-        showText(playerGridPos.X + ", " + playerGridPos.Y, this.pos.X, this.pos.Y, "white")
         return playerGridPos;
+    }
+
+    this.renderBox = function() {
+        drawRectangle(
+            this.pos.X - 5,
+            this.pos.Y - 5,
+            10,
+            10,
+            "red", "stroke");
     }
 
     this.wrapEdges = function() {

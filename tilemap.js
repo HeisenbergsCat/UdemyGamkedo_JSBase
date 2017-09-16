@@ -133,7 +133,7 @@ function Tilemap(startposX, startposY, sizeX, sizeY, collider) {
             var currentTile = this.world[mouseGridY][mouseGridX];
             if (clicked == 1) {
                 this.currentLevel[mouseGridY][mouseGridX] = activeType;
-                currentTile.brickType = this.currentLevel[mouseGridY][mouseGridX];;
+                currentTile.tileType = this.currentLevel[mouseGridY][mouseGridX];;
                 currentTile.switchType();
             }
         }
