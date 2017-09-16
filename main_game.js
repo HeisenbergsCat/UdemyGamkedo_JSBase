@@ -1,6 +1,5 @@
 //html
 var canvas, canvasContext;
-
 //game elements
 var PlayerA = new Player(1);
 var World, Pal;
@@ -24,13 +23,11 @@ function gameSetup() {
     inputSetup();
     PlayerA.reset(PLAYER_START.X, PLAYER_START.Y);
 
-    //PALETTE GRID GENERATION
-    Pal = new Palette(0, 600 - GBRICK_SIZE);
-    Pal.generatePalGrid();
-
     //WORLD GRID GENERATION
     World = new Tilemap(0, 0, WORLD_COLS, WORLD_ROWS);
     World.loadLevel(World.levelOne);
+    Pal = new Palette(0, 600 - GTILE_SIZE);
+    Pal.generatePalGrid();
 }
 
 function disableInput() {

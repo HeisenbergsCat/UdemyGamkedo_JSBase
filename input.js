@@ -44,8 +44,8 @@ function calculateMousePos(evt) {
     mouseX = evt.clientX - rect.left - root.scrollLeft;
     mouseY = evt.clientY - rect.top - root.scrollTop;
 
-    mouseGridX = Math.floor(mouseX / GBRICK_SIZE);
-    mouseGridY = Math.floor(mouseY / GBRICK_SIZE);
+    mouseGridX = Math.floor(mouseX / GTILE_SIZE);
+    mouseGridY = Math.floor(mouseY / GTILE_SIZE);
 }
 
 //KEYBOARD INPUT

@@ -1,11 +1,11 @@
 //grid definitions
 const WORLD_ROWS = 14
 const WORLD_COLS = 20
-const GBRICK_SIZE = 40
+const GTILE_SIZE = 40
 
 //BRICK GRID CONSTRUCTOR FUNCTION
 function Tilemap(startposX, startposY, sizeX, sizeY, collider) {
-    this.tileSize = GBRICK_SIZE;
+    this.tileSize = GTILE_SIZE;
     this.sizeX = sizeX;
     this.sizeY = sizeY;
 
@@ -105,21 +105,21 @@ function Tilemap(startposX, startposY, sizeX, sizeY, collider) {
      * Sets the tile type
      */
     this.gnerateGrid = function() {
-        var brickPos = new Vector(startposX, startposY);
+        var tilePos = new Vector(startposX, startposY);
 
         for (var row = 0; row < this.sizeY; row++) {
             for (var col = 0; col < this.sizeX; col++) {
                 //gets tile type from current level loaded
                 var type = this.currentLevel[row][col];
                 //sets next brick positions in columns and rows
-                brickPos.Y = startposY + (this.tileSize * row);
-                brickPos.X = startposX + (this.tileSize * col);
+                tilePos.Y = startposY + (this.tileSize * row);
+                tilePos.X = startposX + (this.tileSize * col);
                 //creates brick object at current column and row
-                this.world[row][col] = new Brick(brickPos.X, brickPos.Y, type);
+                this.world[row][col] = new Brick(tilePos.X, tilePos.Y, type);
                 this.world[row][col].switchType(type);
             }
             //sets back column index to 0
-            brickPos.X = startposX;
+            tilePos.X = startposX;
         }
     }
 
@@ -130,20 +130,20 @@ function Tilemap(startposX, startposY, sizeX, sizeY, collider) {
      */
     this.paintBricks = function(activeType, clicked, mouseGridX, mouseGridY, yBound) {
         if (mouseGridY < yBound) {
-            var currentBrick = this.world[mouseGridY][mouseGridX];
+            var currentTile = this.world[mouseGridY][mouseGridX];
             if (clicked == 1) {
                 this.currentLevel[mouseGridY][mouseGridX] = activeType;
-                currentBrick.brickType = this.currentLevel[mouseGridY][mouseGridX];;
-                currentBrick.switchType();
+                currentTile.brickType = this.currentLevel[mouseGridY][mouseGridX];;
+                currentTile.switchType();
             }
         }
     }
 
     this.renderCursor = function(mouseGridX, mouseGridY, yBound) {
         if (mouseGridY < yBound) {
-            var currentBrick = this.world[mouseGridY][mouseGridX];
-            drawRectangle(currentBrick.pos.X, currentBrick.pos.Y,
-                currentBrick.BRICK_SIDE, currentBrick.BRICK_SIDE, "white", "stroke");
+            var currentTile = this.world[mouseGridY][mouseGridX];
+            drawRectangle(currentTile.pos.X, currentTile.pos.Y,
+                currentTile.BRICK_SIDE, currentTile.BRICK_SIDE, "white", "stroke");
         }
     }
 

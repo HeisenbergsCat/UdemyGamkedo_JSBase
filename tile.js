@@ -1,7 +1,7 @@
 function Brick(posx, posy, type) {
-    this.BRICK_SIDE = GBRICK_SIZE;
+    this.BRICK_SIDE = GTILE_SIZE;
     this.pos = new Vector(posx, posy);
-    this.brickType = type;
+    this.tileType = type;
     this.image = asphA;
     this.collider = false;
 
@@ -9,7 +9,7 @@ function Brick(posx, posy, type) {
     this.colBoxEnd = new Vector(this.BRICK_SIDE, this.BRICK_SIDE);
 
     this.switchType = function() {
-        switch (this.brickType) {
+        switch (this.tileType) {
             case 0:
                 this.image = asphA;
                 this.collider = false;
@@ -17,22 +17,32 @@ function Brick(posx, posy, type) {
             case 1:
                 this.image = curb_R;
                 this.colBox.X = this.pos.X + (this.BRICK_SIDE / 2);
+                this.colBox.Y = this.pos.Y;
                 this.colBoxEnd.X = this.BRICK_SIDE / 2;
+                this.colBoxEnd.Y = this.BRICK_SIDE;
                 this.collider = true;
                 break;
             case 2:
                 this.image = curb_L;
+                this.colBox.X = this.pos.X;
+                this.colBox.Y = this.pos.Y;
                 this.colBoxEnd.X = this.BRICK_SIDE / 2;
+                this.colBoxEnd.Y = this.BRICK_SIDE;
                 this.collider = true;
                 break;
             case 3:
                 this.image = curb_T;
+                this.colBox.X = this.pos.X;
+                this.colBox.Y = this.pos.Y;
+                this.colBoxEnd.X = this.BRICK_SIDE;
                 this.colBoxEnd.Y = this.BRICK_SIDE / 2;
                 this.collider = true;
                 break;
             case 4:
                 this.image = curb_B;
                 this.colBox.Y = this.pos.Y + (this.BRICK_SIDE / 2);
+                this.colBox.X = this.pos.X;
+                this.colBoxEnd.X = this.BRICK_SIDE;
                 this.colBoxEnd.Y = this.BRICK_SIDE / 2;
                 this.collider = true;
                 break;
@@ -70,6 +80,8 @@ function Brick(posx, posy, type) {
                 break;
             case 11:
                 this.image = cornerB_BR;
+                this.colBox.X = this.pos.X;
+                this.colBox.Y = this.pos.Y;
                 this.colBoxEnd.X = this.BRICK_SIDE / 2;
                 this.colBoxEnd.Y = this.BRICK_SIDE / 2;
                 this.collider = true;
@@ -77,6 +89,7 @@ function Brick(posx, posy, type) {
             case 12:
                 this.image = cornerB_BL;
                 this.colBox.X = this.pos.X + (this.BRICK_SIDE / 2);
+                this.colBox.Y = this.pos.Y;
                 this.colBoxEnd.X = this.BRICK_SIDE / 2;
                 this.colBoxEnd.Y = this.BRICK_SIDE / 2;
                 this.collider = true;
