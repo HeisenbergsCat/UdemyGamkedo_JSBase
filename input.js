@@ -18,7 +18,7 @@ const KEY_RIGHT_ARROW = 39;
 const KEY_UP_ARROW = 38;
 const KEY_DOWN_ARROW = 40;
 
-var inputEnabled = false;
+var inputEnabled = true;
 
 function inputSetup() {
 
@@ -50,34 +50,32 @@ function calculateMousePos(evt) {
 
 //KEYBOARD INPUT
 
-function setKeys(whichCar, setState, cKey) {
+function setKeys(whichPlayer, setState, cKey) {
 
-    if (currentKey == whichCar.key_up) {
-        whichCar.gasPressed = setState;
+    if (currentKey == KEY_UP_ARROW) {
+        whichPlayer.upPressed = setState;
     }
-    if (currentKey == whichCar.key_down) {
-        whichCar.reversePressed = setState;
+    if (currentKey == KEY_DOWN_ARROW) {
+        whichPlayer.downPressed = setState;
     }
-    if (currentKey == whichCar.key_right) {
-        whichCar.rightPressed = setState;
+    if (currentKey == KEY_RIGHT_ARROW) {
+        whichPlayer.rightPressed = setState;
     }
-    if (currentKey == whichCar.key_left) {
-        whichCar.leftPressed = setState;
+    if (currentKey == KEY_LEFT_ARROW) {
+        whichPlayer.leftPressed = setState;
     }
-    if (currentKey == whichCar.brake) {
-        whichCar.brakesPressed = setState;
+    if (currentKey == SPACE) {
+        whichPlayer.triggerPressed = setState;
     }
 
 }
 
 function keyPressed(evt) {
     currentKey = evt.keyCode;
-    setKeys(CarA, true, currentKey)
-    setKeys(CarB, true, currentKey)
+    setKeys(PlayerA, true, currentKey)
 }
 
 function keyReleased(evt) {
     currentKey = evt.keyCode;
-    setKeys(CarA, false, currentKey)
-    setKeys(CarB, false, currentKey)
+    setKeys(PlayerA, false, currentKey)
 }
